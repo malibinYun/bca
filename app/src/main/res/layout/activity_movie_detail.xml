@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="#F4F4F4"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".MovieDetailActivity">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
