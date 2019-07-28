@@ -1,6 +1,5 @@
 package com.malibin.boostcourseace.moviedetail;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malibin.boostcourseace.R;
@@ -23,6 +23,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private LikeState currentLikeState = LikeState.NOTHING;
     private int likeCount = 15;
     private int dislikeCount = 1;
+    private float starRating = 8.2f;
 
     private ImageView btnLike;
     private ImageView btnDislike;
@@ -42,9 +43,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void viewInit() {
+        setStarRateScore();
         bindingEvaluationView();
         evaluationButtonInit();
         reviewListInit();
+    }
+
+    private void setStarRateScore() {
+        RatingBar ratingBar = findViewById(R.id.rating_movie_detail_act_star_rating);
+        ratingBar.setRating(starRating / 2);
     }
 
     private void bindingEvaluationView() {
@@ -124,8 +131,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private List<MovieReview> tempData() {
         ArrayList<MovieReview> result = new ArrayList<>();
         result.add(new MovieReview("", "모메", "10분전", 10f, "적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.", 0));
-        result.add(new MovieReview("", "모메", "10분전", 5f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 8f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview("", "모메", "10분전", 3.7f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
         result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
         return result;
     }
@@ -141,16 +148,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (listAdapter == null) {
             return;
         }
-
         int totalHeight = 0;
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
         int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
 
-        Log.v("Malibin Debug","listAdapter.getCount() : " + listAdapter.getCount());
+        Log.v("Malibin Debug", "listAdapter.getCount() : " + listAdapter.getCount());
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(UNBOUNDED, UNBOUNDED);
-            Log.v("Malibin Debug","listItem.getMeasuredHeight() : " + listItem.getMeasuredHeight());
+            Log.v("Malibin Debug", "listItem.getMeasuredHeight() : " + listItem.getMeasuredHeight());
             totalHeight += listItem.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();

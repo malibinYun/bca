@@ -52,7 +52,7 @@ public class MovieReviewView extends ConstraintLayout {
 
     public void bindContentsWith(MovieReview review){
         setNickname(review.getNickname());
-        //setProfileImage(R.drawable.user1);
+        setProfileImage(R.drawable.user1);
         setTimeText(review.getTime());
         setRatingBarScore(review.getStarRate());
         setContent(review.getContent());

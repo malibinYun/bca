@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_rv_movie_review_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,8 +58,14 @@
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminateTint="#7FCAC3"
-                android:isIndicator="false" />
+                android:foregroundTint="#7FCAC3"
+                android:isIndicator="true"
+                android:max="5"
+                android:numStars="5"
+                android:progressBackgroundTint="#7FCAC3"
+                android:progressTint="#7FCAC3"
+                android:secondaryProgressTint="#7FCAC3"
+                android:stepSize="0.1" />
         </LinearLayout>
 
         <TextView
