@@ -1,15 +1,18 @@
 package com.malibin.boostcourseace.moviedetail;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.moviedetail.adapter.ReviewListAdapter;
@@ -47,6 +50,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         bindingEvaluationView();
         evaluationButtonInit();
         reviewListInit();
+        reviewWriteBtnInit();
+        reviewMoreBtnInit();
     }
 
     private void setStarRateScore() {
@@ -165,4 +170,17 @@ public class MovieDetailActivity extends AppCompatActivity {
         listView.requestLayout();
     }
 
+    private void reviewWriteBtnInit() {
+        LinearLayout btn = findViewById(R.id.btn_movie_detail_act_review_write);
+        btn.setOnClickListener(view -> {
+            Toast.makeText(this, "리뷰 쓰기 버튼 눌림", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void reviewMoreBtnInit() {
+        ConstraintLayout btn = findViewById(R.id.btn_movie_detail_act_review_more);
+        btn.setOnClickListener(view -> {
+            Toast.makeText(this, "리뷰 더보기 버튼 눌림", Toast.LENGTH_SHORT).show();
+        });
+    }
 }
