@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,16 +39,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        viewInit();
+        initView();
     }
 
-    private void viewInit() {
+    private void initView() {
         setStarRateScore();
-        bindingEvaluationView();
-        evaluationButtonInit();
-        reviewListInit();
-        reviewWriteBtnInit();
-        reviewMoreBtnInit();
+        bindEvaluationView();
+        initEvaluationButton();
+        initReviewList();
+        initReviewWriteBtn();
+        initReviewMoreBtn();
     }
 
     private void setStarRateScore() {
@@ -55,14 +56,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingBar.setRating(starRating / 2);
     }
 
-    private void bindingEvaluationView() {
+    private void bindEvaluationView() {
         btnLike = findViewById(R.id.btn_movie_detail_act_like);
         btnDislike = findViewById(R.id.btn_movie_detail_act_dislike);
         tvLikeCount = findViewById(R.id.tv_movie_detail_act_like_count);
         tvDislikeCount = findViewById(R.id.tv_movie_detail_act_dislike_count);
     }
 
-    private void evaluationButtonInit() {
+    private void initEvaluationButton() {
         tvLikeCount.setText(String.valueOf(likeCount));
         tvDislikeCount.setText(String.valueOf(dislikeCount));
 
@@ -119,7 +120,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvDislikeCount.setText(String.valueOf(dislikeCount + 1));
     }
 
-    private void reviewListInit() {
+    private void initReviewList() {
         ListView reviewList = findViewById(R.id.rv_movie_detail_review_list);
         ReviewListAdapter adapter = new ReviewListAdapter(this, tempData());
         reviewList.setAdapter(adapter);
@@ -137,34 +138,30 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
         int totalHeight = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int listWidth = listView.getMeasuredWidth();
 
-        Log.v("Malibin Debug", "listAdapter.getCount() : " + listAdapter.getCount());
         for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(UNBOUNDED, UNBOUNDED);
-            Log.v("Malibin Debug", "listItem.getMeasuredHeight() : " + listItem.getMeasuredHeight());
-            totalHeight += listItem.getMeasuredHeight();
+            View mView = listAdapter.getView(i, null, listView);
+            mView.measure(
+                    MeasureSpec.makeMeasureSpec(listWidth, MeasureSpec.UNSPECIFIED),
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+
+            totalHeight += mView.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 2));
     }
 
-    private void reviewWriteBtnInit() {
+    private void initReviewWriteBtn() {
         LinearLayout btn = findViewById(R.id.btn_movie_detail_act_review_write);
         btn.setOnClickListener(view -> {
             Toast.makeText(this, "리뷰 쓰기 버튼 눌림", Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void reviewMoreBtnInit() {
+    private void initReviewMoreBtn() {
         ConstraintLayout btn = findViewById(R.id.btn_movie_detail_act_review_more);
         btn.setOnClickListener(view -> {
             Toast.makeText(this, "리뷰 더보기 버튼 눌림", Toast.LENGTH_SHORT).show();

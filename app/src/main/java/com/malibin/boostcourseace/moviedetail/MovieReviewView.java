@@ -16,12 +16,12 @@ import com.malibin.boostcourseace.R;
 
 public class MovieReviewView extends ConstraintLayout {
 
-    ImageView ivProfile;
-    TextView tvNickname;
-    TextView tvTime;
-    RatingBar ratingBar;
-    TextView tvContent;
-    TextView tvRecommendCount;
+    private ImageView ivProfile;
+    private TextView tvNickname;
+    private TextView tvTime;
+    private RatingBar ratingBar;
+    private TextView tvContent;
+    private TextView tvRecommendCount;
 
     public MovieReviewView(Context context) {
         super(context);
