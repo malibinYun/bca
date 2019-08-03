@@ -17,51 +17,39 @@ public class MovieReview {
         this.recommendCount = recommendCount;
     }
 
-    public String getProfile() {
-        return profile;
+    @Override
+    public String toString() {
+        return "MovieReview{" +
+                "profile='" + profile + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", time='" + time + '\'' +
+                ", starRate=" + starRate +
+                ", content='" + content + '\'' +
+                ", recommendCount=" + recommendCount +
+                '}';
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public String getProfile() {
+        return profile;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getTime() {
         return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public float getStarRate() {
         return starRate;
     }
 
-    public void setStarRate(float starRate) {
-        this.starRate = starRate;
-    }
-
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public int getRecommendCount() {
         return recommendCount;
-    }
-
-    public void setRecommendCount(int recommendCount) {
-        this.recommendCount = recommendCount;
     }
 }
