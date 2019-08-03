@@ -5,13 +5,19 @@
     <string name="cancel">취 소</string>
     <string name="movie_name">영화이름</string>
 
-    <!--> Movie Write Act <-->
+    <!--> Movie Detail Act <-->
+    <string name="snack_bar_review_saved">리뷰작성이 완료되었습니다.</string>
+    <string name="snack_bar_review_canceled">리뷰작성이 취소되었습니다.</string>
+    <!--> Movie Detail Act <-->
+
+    <!--> Review Write Act <-->
+    <string name="review_write_title">한줄평 작성</string>
     <string name="request_rating">평점을 입력해 주세요</string>
     <string name="request_under_100ch">100자 이내로 작성해주세요.</string>
-    <!--> Movie Write Act <-->
+    <!--> Review Write Act <-->
 
-    <!--> Movie More Act <-->
+    <!--> Review More Act <-->
     <string name="participants_count">(000명 참여)</string>
     <string name="star_rating_count">0.0</string>
-    <!--> Movie More Act <-->
+    <!--> Review More Act <-->
 </resources>

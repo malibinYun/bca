@@ -1,7 +1,11 @@
 package com.malibin.boostcourseace.moviedetail;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -15,19 +19,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.moviedetail.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.review.MovieReview;
+import com.malibin.boostcourseace.review.more.ReviewMoreActivity;
+import com.malibin.boostcourseace.review.write.ReviewWriteActivity;
 import com.malibin.boostcourseace.util.LikeState;
+import com.malibin.boostcourseace.util.MovieRate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
+    private final int REQUEST_CODE_REVIEW_WRITE = 10000;
+    private final int REQUEST_CODE_REVIEW_MORE = 10001;
+
+    private String movieTitle = "군도";
+    private float starRating = 8.2f;
+    private int movieRate = 15;
     private LikeState currentLikeState = LikeState.NOTHING;
     private int likeCount = 15;
     private int dislikeCount = 1;
-    private float starRating = 8.2f;
 
     private ImageView btnLike;
     private ImageView btnDislike;
@@ -40,6 +53,29 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         initView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_REVIEW_WRITE) {
+            if (resultCode == Activity.RESULT_OK) {
+                showWriteReviewSaved();
+                return;
+            }
+            showWriteReviewCanceled();
+        }
+        if (requestCode == REQUEST_CODE_REVIEW_MORE) {
+            Toast.makeText(this, "onActivityResult REQUEST_CODE_REVIEW_MORE", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showWriteReviewSaved() {
+        Snackbar.make(btnLike, R.string.snack_bar_review_saved, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void showWriteReviewCanceled() {
+        Snackbar.make(btnLike, R.string.snack_bar_review_canceled, Snackbar.LENGTH_SHORT).show();
     }
 
     private void initView() {
@@ -156,15 +192,28 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void initReviewWriteBtn() {
         LinearLayout btn = findViewById(R.id.btn_movie_detail_act_review_write);
-        btn.setOnClickListener(view -> {
-            Toast.makeText(this, "리뷰 쓰기 버튼 눌림", Toast.LENGTH_SHORT).show();
-        });
+        btn.setOnClickListener(view -> startReviewWriteActivity());
     }
 
     private void initReviewMoreBtn() {
         ConstraintLayout btn = findViewById(R.id.btn_movie_detail_act_review_more);
-        btn.setOnClickListener(view -> {
-            Toast.makeText(this, "리뷰 더보기 버튼 눌림", Toast.LENGTH_SHORT).show();
-        });
+        btn.setOnClickListener(view -> startReviewMoreActivity());
+    }
+
+    private void startReviewWriteActivity() {
+        ReviewWriteDTO dto = getReviewWriteDTO();
+        Intent intent = new Intent(this, ReviewWriteActivity.class);
+        intent.putExtra("dto", dto);
+        startActivityForResult(intent, REQUEST_CODE_REVIEW_WRITE);
+    }
+
+    private void startReviewMoreActivity() {
+        Intent intent = new Intent(this, ReviewMoreActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_REVIEW_MORE);
+    }
+
+    private ReviewWriteDTO getReviewWriteDTO() {
+        MovieRate rate = MovieRate.findByRate(movieRate);
+        return new ReviewWriteDTO(movieTitle, rate);
     }
 }
