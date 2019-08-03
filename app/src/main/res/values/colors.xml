@@ -6,4 +6,6 @@
 
     <color name="mint">#7FCAC3</color>
     <color name="yellow">#ffd7ae</color>
+
+    <color name="backgroundGray">#F4F4F4</color>
 </resources>

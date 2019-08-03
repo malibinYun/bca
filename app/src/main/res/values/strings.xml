@@ -9,4 +9,9 @@
     <string name="request_rating">평점을 입력해 주세요</string>
     <string name="request_under_100ch">100자 이내로 작성해주세요.</string>
     <!--> Movie Write Act <-->
+
+    <!--> Movie More Act <-->
+    <string name="participants_count">(000명 참여)</string>
+    <string name="star_rating_count">0.0</string>
+    <!--> Movie More Act <-->
 </resources>
