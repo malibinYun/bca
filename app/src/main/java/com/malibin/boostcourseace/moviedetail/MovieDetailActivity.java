@@ -33,10 +33,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvLikeCount;
     private TextView tvDislikeCount;
 
-    // 코드를 메소드로 최대한 분리하기위해 뷰들을 클래스 필드로 선언했는데, 이게 좋은방법인지 궁금합니다.
-    // 만일 액티비티에서 관리하는 뷰들이 많아지면 필드가 너무 많아지는데요,
-    // 코틀린에서는 anko 라이브러리가 뷰 바인딩을 해주어 쉽게 사용할수 있는데, 자바에서는 어떻게 하면 좋을지 잘 모르겠습니다.
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,9 +81,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
             modifyCount(view);
         });
-
-        // 클릭리스너 안의 메소드가 중복이 되는데 하나로 줄일 수 있는 방법이 있을까요?
-        // 코틀린의 listOf(...).forEach{...} 문법이 존재하는지 궁금합니다.
     }
 
     private void rollbackCount(View view) {
@@ -142,12 +135,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         return result;
     }
 
-    // 스크롤뷰 내 리스트뷰의 높이조절 이슈때문에 추가하였습니다만..
-    // 이것을 사용해도 리스트뷰의 자식뷰 높이를 제대로 불러오지 못하는 것 같습니다.
-    // 저로서는 해결이 도저히 되지 않아 이슈가 남은 상태로 코드 리뷰를 신청합니다..
-    // 항상 리사이클러뷰를 사용하여 이러한 뷰를 구현해왔는데, 평소에 써본적 없는 리스트뷰를
-    // 사용해서 구현하려니 시간내에 이슈를 극복하기에는 역부족인것 같습니다..
-    // 리사이클러뷰로 구현한다면 문제없이 구현할 수 있습니다. 혹시 리사이클러뷰로 구현해도 괜찮은지요..
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {

@@ -5,8 +5,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import com.malibin.boostcourseace.moviedetail.MovieReview;
 import com.malibin.boostcourseace.moviedetail.MovieReviewView;
+
 import java.util.List;
 
 public class ReviewListAdapter extends BaseAdapter {
@@ -36,12 +38,12 @@ public class ReviewListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MovieReviewView view = new MovieReviewView(context);
+        MovieReviewView view = (MovieReviewView) convertView;
+        if (view == null) {
+            view = new MovieReviewView(context);
+        }
         MovieReview item = items.get(position);
-
         view.bindContentsWith(item);
         return view;
     }
-
-
 }
