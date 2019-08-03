@@ -1,13 +1,12 @@
 package com.malibin.boostcourseace.moviedetail.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.malibin.boostcourseace.moviedetail.MovieReview;
-import com.malibin.boostcourseace.moviedetail.MovieReviewView;
+import com.malibin.boostcourseace.review.MovieReview;
+import com.malibin.boostcourseace.review.MovieReviewView;
 
 import java.util.List;
 

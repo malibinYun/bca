@@ -3,7 +3,6 @@ package com.malibin.boostcourseace.moviedetail;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.moviedetail.adapter.ReviewListAdapter;
+import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.util.LikeState;
 
 import java.util.ArrayList;

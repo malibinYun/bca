@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.moviedetail;
+package com.malibin.boostcourseace.review;
 
 public class MovieReview {
     private String profile;

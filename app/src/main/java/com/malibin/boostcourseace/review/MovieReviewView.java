@@ -1,18 +1,17 @@
-package com.malibin.boostcourseace.moviedetail;
+package com.malibin.boostcourseace.review;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.review.MovieReview;
 
 public class MovieReviewView extends ConstraintLayout {
 
