@@ -19,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.moviedetail.adapter.ReviewListAdapter;
+import com.malibin.boostcourseace.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.review.more.ReviewMoreActivity;
 import com.malibin.boostcourseace.review.write.ReviewWriteActivity;
@@ -36,7 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private final int REQUEST_CODE_REVIEW_MORE = 10001;
 
     private String movieTitle = "군도";
-    private float starRating = 8.2f;
+    private float starRate = 8.2f;
     private int movieRate = 15;
     private LikeState currentLikeState = LikeState.NOTHING;
     private int likeCount = 15;
@@ -66,16 +67,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             showWriteReviewCanceled();
         }
         if (requestCode == REQUEST_CODE_REVIEW_MORE) {
-            Toast.makeText(this, "onActivityResult REQUEST_CODE_REVIEW_MORE", Toast.LENGTH_SHORT).show();
+            showReturnFromReviewMore();
         }
-    }
-
-    private void showWriteReviewSaved() {
-        Snackbar.make(btnLike, R.string.snack_bar_review_saved, Snackbar.LENGTH_SHORT).show();
-    }
-
-    private void showWriteReviewCanceled() {
-        Snackbar.make(btnLike, R.string.snack_bar_review_canceled, Snackbar.LENGTH_SHORT).show();
     }
 
     private void initView() {
@@ -89,7 +82,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void setStarRateScore() {
         RatingBar ratingBar = findViewById(R.id.rating_movie_detail_act_star_rating);
-        ratingBar.setRating(starRating / 2);
+        ratingBar.setRating(starRate / 2);
     }
 
     private void bindEvaluationView() {
@@ -208,12 +201,31 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void startReviewMoreActivity() {
+        ReviewMoreDTO dto = getReviewMoreDTO();
         Intent intent = new Intent(this, ReviewMoreActivity.class);
+        intent.putExtra("dto", dto);
         startActivityForResult(intent, REQUEST_CODE_REVIEW_MORE);
     }
 
     private ReviewWriteDTO getReviewWriteDTO() {
         MovieRate rate = MovieRate.findByRate(movieRate);
         return new ReviewWriteDTO(movieTitle, rate);
+    }
+
+    private ReviewMoreDTO getReviewMoreDTO() {
+        MovieRate rate = MovieRate.findByRate(movieRate);
+        return new ReviewMoreDTO(movieTitle, rate, starRate);
+    }
+
+    private void showWriteReviewSaved() {
+        Snackbar.make(btnLike, R.string.snack_bar_review_saved, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void showWriteReviewCanceled() {
+        Snackbar.make(btnLike, R.string.snack_bar_review_canceled, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void showReturnFromReviewMore() {
+        Toast.makeText(this, "모두보기 화면에서 돌아왔습니다.", Toast.LENGTH_SHORT).show();
     }
 }

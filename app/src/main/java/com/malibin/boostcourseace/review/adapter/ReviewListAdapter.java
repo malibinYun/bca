@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.moviedetail.adapter;
+package com.malibin.boostcourseace.review.adapter;
 
 import android.content.Context;
 import android.view.View;

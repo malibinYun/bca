@@ -17,6 +17,7 @@
     <!--> Review Write Act <-->
 
     <!--> Review More Act <-->
+    <string name="review_more_title">한줄평 목록</string>
     <string name="participants_count">(000명 참여)</string>
     <string name="star_rating_count">0.0</string>
     <!--> Review More Act <-->
