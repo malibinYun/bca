@@ -37,9 +37,9 @@ public class ReviewListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MovieReviewView view = (MovieReviewView) convertView;
-        if (view == null) {
-            view = new MovieReviewView(context);
+        MovieReviewView view = new MovieReviewView(context);
+        if (convertView != null) {
+            view = (MovieReviewView) convertView;
         }
         MovieReview item = items.get(position);
         view.bindContentsWith(item);

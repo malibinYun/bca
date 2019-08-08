@@ -37,7 +37,7 @@ public class ReviewMoreActivity extends AppCompatActivity {
     }
 
     private void getIntentData() {
-        reviewMoreDTO = (ReviewMoreDTO) getIntent().getSerializableExtra("dto");
+        reviewMoreDTO = getIntent().getParcelableExtra("dto");
     }
 
     private void initView() {
