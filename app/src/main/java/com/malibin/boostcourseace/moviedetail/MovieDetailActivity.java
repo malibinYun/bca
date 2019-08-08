@@ -61,6 +61,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_REVIEW_WRITE) {
             if (resultCode == Activity.RESULT_OK) {
+                MovieReview receivedData = data.getParcelableExtra("review");
+                appendReceivedReview(receivedData);
                 showWriteReviewSaved();
                 return;
             }
@@ -215,6 +217,13 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ReviewMoreDTO getReviewMoreDTO() {
         MovieRate rate = MovieRate.findByRate(movieRate);
         return new ReviewMoreDTO(movieTitle, rate, starRate);
+    }
+
+    private void appendReceivedReview(MovieReview review) {
+        ListView listView = findViewById(R.id.rv_movie_detail_review_list);
+        ReviewListAdapter adapter = (ReviewListAdapter) listView.getAdapter();
+        adapter.addReview(review);
+        setListViewHeightBasedOnChildren(listView);
     }
 
     private void showWriteReviewSaved() {

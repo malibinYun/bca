@@ -1,12 +1,27 @@
 package com.malibin.boostcourseace.review;
 
-public class MovieReview {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MovieReview implements Parcelable {
     private String profile;
     private String nickname;
     private String time;
     private float starRate;
     private String content;
     private int recommendCount;
+
+    public static final Creator<MovieReview> CREATOR = new Creator<MovieReview>() {
+        @Override
+        public MovieReview createFromParcel(Parcel in) {
+            return new MovieReview(in);
+        }
+
+        @Override
+        public MovieReview[] newArray(int size) {
+            return new MovieReview[size];
+        }
+    };
 
     public MovieReview(String profile, String nickname, String time, float starRate, String content, int recommendCount) {
         this.profile = profile;
@@ -15,6 +30,30 @@ public class MovieReview {
         this.starRate = starRate;
         this.content = content;
         this.recommendCount = recommendCount;
+    }
+
+    protected MovieReview(Parcel in) {
+        profile = in.readString();
+        nickname = in.readString();
+        time = in.readString();
+        starRate = in.readFloat();
+        content = in.readString();
+        recommendCount = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(profile);
+        dest.writeString(nickname);
+        dest.writeString(time);
+        dest.writeFloat(starRate);
+        dest.writeString(content);
+        dest.writeInt(recommendCount);
     }
 
     @Override

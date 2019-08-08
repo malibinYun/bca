@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
+import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.util.MovieRate;
 
 public class ReviewWriteActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
     }
 
     private void getIntentData() {
-        reviewWriteDTO = (ReviewWriteDTO) getIntent().getParcelableExtra("dto");
+        reviewWriteDTO = (ReviewWriteDTO) getIntent().getSerializableExtra("dto");
     }
 
     private void initView() {
@@ -59,7 +60,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
     }
 
     private void clickSaveBtn() {
-        setResult(Activity.RESULT_OK);
         saveReview();
         finish();
     }
@@ -78,6 +78,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         String content = getEditTextContent();
         float starRate = getRatingBarScore();
         Log.d("Malibin Debug", "content : " + content + ", starRate : " + starRate);
+        sendReviewToPreviousActivity();
         // 리뷰를 저장하는 로직 작성
     }
 
@@ -88,6 +89,19 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
     private float getRatingBarScore() {
         RatingBar ratingBar = findViewById(R.id.ratingBar_review_write_act);
-        return ratingBar.getRating() * 2;
+        return ratingBar.getRating();
+    }
+
+    private MovieReview getMovieReview() {
+        float starRate = getRatingBarScore();
+        String content = getEditTextContent();
+        return new MovieReview("", "userNickname", "방금", starRate, content, 0);
+    }
+
+    private void sendReviewToPreviousActivity() {
+        MovieReview review = getMovieReview();
+        Intent intent = new Intent();
+        intent.putExtra("review", review);
+        setResult(Activity.RESULT_OK, intent);
     }
 }

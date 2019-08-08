@@ -45,4 +45,9 @@ public class ReviewListAdapter extends BaseAdapter {
         view.bindContentsWith(item);
         return view;
     }
+
+    public void addReview(MovieReview review) {
+        items.add(review);
+        notifyDataSetChanged();
+    }
 }
