@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:text="추천"
+            android:text="@string/recommend"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -110,7 +110,7 @@
             android:id="@+id/btn_rv_movie_review_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신고하기" />
+            android:text="@string/report" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -29,7 +29,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
     }
 
     private void getIntentData() {
-        reviewWriteDTO = (ReviewWriteDTO) getIntent().getSerializableExtra("dto");
+        reviewWriteDTO = (ReviewWriteDTO) getIntent().getParcelableExtra("dto");
     }
 
     private void initView() {

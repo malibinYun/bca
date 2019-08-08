@@ -5,7 +5,10 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="mint">#7FCAC3</color>
-    <color name="yellow">#ffd7ae</color>
+    <color name="yellow">#FFD7AE</color>
+    <color name="orange">#E44418</color>
+    <color name="purple">#BF58DB</color>
+    <color name="dark_purple">#4B0082</color>
 
     <color name="backgroundGray">#F4F4F4</color>
 </resources>
