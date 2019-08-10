@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.moviedetail;
+package com.malibin.boostcourseace.movie.detail;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#3F51b5</color>
+    <color name="colorPrimaryDark">#254194</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="mint">#7FCAC3</color>
     <color name="yellow">#FFD7AE</color>
     <color name="orange">#E44418</color>
+    <color name="lightOrange">#ff561d</color>
     <color name="purple">#BF58DB</color>
     <color name="dark_purple">#4B0082</color>
 
