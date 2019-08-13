@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
+import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.select.MoviePageFragment;
 
 import java.util.ArrayList;
@@ -44,13 +45,19 @@ public class MoviePageFragmentStatePagerAdapter extends FragmentStatePagerAdapte
         imageFragments.add(fragment);
     }
 
+    public void addImageFragment(Movie movie) {
+        MoviePageFragment fragment = MoviePageFragment.getInstance(movie);
+        imageFragments.add(fragment);
+    }
+
     public void addImageFragment(Fragment fragment) {
         imageFragments.add(fragment);
     }
 
-    public void addImageFragments(List<Integer> resourceIds) {
-        for (int resourceId : resourceIds) {
-            addImageFragment(resourceId);
+    public void addImageFragments(List<Movie> movies) {
+        for (Movie movie : movies) {
+            addImageFragment(movie);
         }
     }
+
 }

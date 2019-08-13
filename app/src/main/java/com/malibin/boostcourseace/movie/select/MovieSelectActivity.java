@@ -40,13 +40,13 @@ public class MovieSelectActivity extends AppCompatActivity {
     }
 
     private void initMoviePagesView() {
-        FragmentManager manager = getSupportFragmentManager();
-        MoviePageFragmentStatePagerAdapter adapter =
-                new MoviePageFragmentStatePagerAdapter(manager);
-        adapter.addImageFragments(imageResourceIds);
-
-        ViewPager moviePager = findViewById(R.id.vp_movie_select_act);
-        moviePager.setAdapter(adapter);
+//        FragmentManager manager = getSupportFragmentManager();
+//        MoviePageFragmentStatePagerAdapter adapter =
+//                new MoviePageFragmentStatePagerAdapter(manager);
+//        adapter.addImageFragments(imageResourceIds);
+//
+//        ViewPager moviePager = findViewById(R.id.vp_movie_select_act);
+//        moviePager.setAdapter(adapter);
     }
 
 
