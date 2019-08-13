@@ -22,6 +22,7 @@ public class Movie implements Parcelable {
     private int likeCount;
     private int dislikeCount;
 
+    private int reservationRank;
     private float reservationRate;
     private float starRate;
     private float accumulatedAttendance;
@@ -42,7 +43,7 @@ public class Movie implements Parcelable {
         }
     };
 
-    public Movie(int imageUrl, String title, MovieRate movieRate, String openingDay, String genre, String showTime, int likeCount, int dislikeCount, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress) {
+    public Movie(int imageUrl, String title, MovieRate movieRate, String openingDay, String genre, String showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress) {
         this.imageUrl = imageUrl;
         this.title = title;
         this.movieRate = movieRate;
@@ -51,6 +52,7 @@ public class Movie implements Parcelable {
         this.showTime = showTime;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
+        this.reservationRank = reservationRank;
         this.reservationRate = reservationRate;
         this.starRate = starRate;
         this.accumulatedAttendance = accumulatedAttendance;
@@ -68,6 +70,7 @@ public class Movie implements Parcelable {
         showTime = in.readString();
         likeCount = in.readInt();
         dislikeCount = in.readInt();
+        reservationRank = in.readInt();
         reservationRate = in.readFloat();
         starRate = in.readFloat();
         accumulatedAttendance = in.readFloat();
@@ -91,6 +94,7 @@ public class Movie implements Parcelable {
         dest.writeString(showTime);
         dest.writeInt(likeCount);
         dest.writeInt(dislikeCount);
+        dest.writeInt(reservationRank);
         dest.writeFloat(reservationRate);
         dest.writeFloat(starRate);
         dest.writeFloat(accumulatedAttendance);
@@ -129,6 +133,10 @@ public class Movie implements Parcelable {
 
     public int getDislikeCount() {
         return dislikeCount;
+    }
+
+    public int getReservationRank() {
+        return reservationRank;
     }
 
     public float getReservationRate() {

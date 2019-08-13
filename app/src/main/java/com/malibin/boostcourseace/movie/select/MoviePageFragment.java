@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
@@ -50,6 +51,11 @@ public class MoviePageFragment extends Fragment {
         loadImage();
     }
 
+    public void replaceFragment2MovieDetail(Movie movie) {
+        MovieDetailFragment fragment = MovieDetailFragment.getInstance(movie);
+        activity.replaceFragment(fragment);
+    }
+
     private void initValue() {
         if (getArguments() == null) {
             return; // Throw error
@@ -64,6 +70,23 @@ public class MoviePageFragment extends Fragment {
     private void initView() {
         inflatedView = getView();
         initButton();
+        bindViewWithContents();
+    }
+
+    private void initButton() {
+        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
+        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
+    }
+
+    private void bindViewWithContents() {
+        TextView tvTitle = inflatedView.findViewById(R.id.tv_movie_page_frag_title);
+        TextView tvReservationRate = inflatedView.findViewById(R.id.tv_movie_page_frag_reservation_rate);
+        TextView tvMovieRate = inflatedView.findViewById(R.id.tv_movie_page_frag_rate);
+
+        String reservationRate = movie.getReservationRate() + "%";
+        tvTitle.setText(movie.getTitle());
+        tvReservationRate.setText(reservationRate);
+        tvMovieRate.setText(movie.getMovieRate().getText());
     }
 
     private void loadImage() {
@@ -72,13 +95,5 @@ public class MoviePageFragment extends Fragment {
         Glide.with(activity).load(resourceId).into(imageView);
     }
 
-    private void initButton() {
-        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
-        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
-    }
 
-    public void replaceFragment2MovieDetail(Movie movie) {
-        MovieDetailFragment fragment = MovieDetailFragment.getInstance(movie);
-        activity.replaceFragment(fragment);
-    }
 }

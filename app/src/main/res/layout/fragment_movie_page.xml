@@ -60,7 +60,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="61.6%"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -76,7 +75,6 @@
             android:id="@+id/tv_movie_page_frag_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15세 관람가"
             android:textColor="@android:color/white" />
 
         <TextView

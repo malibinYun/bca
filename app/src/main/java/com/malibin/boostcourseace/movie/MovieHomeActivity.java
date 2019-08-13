@@ -28,12 +28,12 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_movie_home_act);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+            return;
         }
+        super.onBackPressed();
     }
 
     @Override

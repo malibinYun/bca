@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
@@ -30,8 +31,10 @@ import com.malibin.boostcourseace.review.write.ReviewWriteActivity;
 import com.malibin.boostcourseace.util.LikeState;
 import com.malibin.boostcourseace.util.MovieRate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created By Yun Hyeok
@@ -107,18 +110,56 @@ public class MovieDetailFragment extends Fragment {
     private void initView() {
         inflatedView = getView();
 
-        setStarRateScore();
-        bindEvaluationView();
-        initEvaluationButton();
-        initReviewList();
-        initReviewWriteBtn();
-        initReviewMoreBtn();
+        initPosterZone();
+
+        initGradeRecordZone();
+
+        initDetailZone();
+
+        initReviewZone();
     }
 
-    private void setStarRateScore() {
-        float starRate = movie.getStarRate();
-        RatingBar ratingBar = inflatedView.findViewById(R.id.rating_movie_detail_act_star_rating);
-        ratingBar.setRating(starRate / 2);
+    private void initPosterZone() {
+        initMovieImage();
+        initMovieTitle();
+        initMovieRateImage();
+        initOpeningDay();
+        initGenre();
+        initShowTime();
+
+        bindEvaluationView();
+        initEvaluationButton();
+    }
+
+    private void initMovieImage() {
+        ImageView movieImage = inflatedView.findViewById(R.id.iv_movie_detail_act_main_image);
+        Glide.with(this).load(movie.getImageUrl()).into(movieImage);
+    }
+
+    private void initMovieTitle() {
+        TextView tvTitle = inflatedView.findViewById(R.id.tv_movie_detail_act_title);
+        tvTitle.setText(movie.getTitle());
+    }
+
+    public void initMovieRateImage() {
+        ImageView ivMovieRate = inflatedView.findViewById(R.id.iv_movie_detail_act_movie_rating);
+        int imageResource = movie.getMovieRate().getImageResource();
+        ivMovieRate.setImageResource(imageResource);
+    }
+
+    private void initOpeningDay() {
+        TextView tvOpenDay = inflatedView.findViewById(R.id.tv_movie_detail_act_opening_day);
+        tvOpenDay.setText(movie.getOpeningDay());
+    }
+
+    private void initGenre() {
+        TextView tvGenre = inflatedView.findViewById(R.id.tv_movie_detail_act_genre);
+        tvGenre.setText(movie.getGenre());
+    }
+
+    private void initShowTime() {
+        TextView tvShowTime = inflatedView.findViewById(R.id.tv_movie_detail_act_show_time);
+        tvShowTime.setText(movie.getShowTime());
     }
 
     private void bindEvaluationView() {
@@ -147,6 +188,62 @@ public class MovieDetailFragment extends Fragment {
             }
             modifyCount(view);
         });
+    }
+
+    private void initGradeRecordZone() {
+        initReservationRecord();
+        initStarRateScore();
+        initAccumulation();
+    }
+
+    private void initReservationRecord() {
+        TextView tvRank = inflatedView.findViewById(R.id.tv_movie_detail_act_ranking);
+        tvRank.setText((movie.getReservationRank() + "위"));
+
+        TextView tvRate = inflatedView.findViewById(R.id.tv_movie_detail_act_reservation);
+        tvRate.setText((movie.getReservationRate() + "%"));
+    }
+
+    private void initStarRateScore() {
+        float starRate = movie.getStarRate();
+        RatingBar ratingBar = inflatedView.findViewById(R.id.rating_movie_detail_act_star_rating);
+        ratingBar.setRating(starRate / 2);
+
+        TextView tvStarRate = inflatedView.findViewById(R.id.tv_movie_detail_act_star_rate);
+        tvStarRate.setText(String.valueOf(starRate));
+    }
+
+    private void initAccumulation() {
+        TextView tvAccumulation = inflatedView.findViewById(R.id.tv_movie_detail_act_accumulation);
+        String numberFormat = NumberFormat.getNumberInstance(Locale.US).format(movie.getReservationRate());
+        tvAccumulation.setText((numberFormat + "명"));
+    }
+
+    private void initDetailZone() {
+        initPlot();
+        initDirector();
+        initActor();
+    }
+
+    private void initPlot() {
+        TextView tvPlot = inflatedView.findViewById(R.id.tv_movie_detail_act_plot);
+        tvPlot.setText(movie.getPlot());
+    }
+
+    private void initDirector() {
+        TextView tvDirector = inflatedView.findViewById(R.id.tv_movie_detail_act_director);
+        tvDirector.setText(movie.getDirector());
+    }
+
+    private void initActor() {
+        TextView tvActor = inflatedView.findViewById(R.id.tv_movie_detail_act_actor);
+        tvActor.setText(movie.getActress());
+    }
+
+    private void initReviewZone() {
+        initReviewList();
+        initReviewWriteBtn();
+        initReviewMoreBtn();
     }
 
     private void rollbackCount(View view) {
