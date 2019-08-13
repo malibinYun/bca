@@ -2,9 +2,11 @@ package com.malibin.boostcourseace.review.write;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,11 +36,18 @@ public class ReviewWriteActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        setTitle(R.string.review_write_title);
+        initToolbar();
         setMovieTitle();
         setMovieRate();
         initSaveBtn();
         initCancelBtn();
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_review_write_act);
+        toolbar.setTitle("한줄평 작성");
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
     }
 
     private void setMovieTitle() {

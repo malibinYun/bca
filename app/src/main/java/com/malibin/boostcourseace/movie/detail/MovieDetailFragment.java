@@ -24,6 +24,7 @@ import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.movie.Movie;
+import com.malibin.boostcourseace.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.review.more.ReviewMoreActivity;
@@ -68,7 +69,7 @@ public class MovieDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_movie_detail, container, false);
+        return inflater.inflate(R.layout.fragment_movie_detail, container, false);
     }
 
     @Override
@@ -110,6 +111,8 @@ public class MovieDetailFragment extends Fragment {
     private void initView() {
         inflatedView = getView();
 
+        setActivityAppbarTitle();
+
         initPosterZone();
 
         initGradeRecordZone();
@@ -117,6 +120,10 @@ public class MovieDetailFragment extends Fragment {
         initDetailZone();
 
         initReviewZone();
+    }
+
+    private void setActivityAppbarTitle() {
+        ((MovieHomeActivity) getActivity()).setAppbarTitle("영화 상세");
     }
 
     private void initPosterZone() {
@@ -132,41 +139,41 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void initMovieImage() {
-        ImageView movieImage = inflatedView.findViewById(R.id.iv_movie_detail_act_main_image);
+        ImageView movieImage = inflatedView.findViewById(R.id.iv_movie_detail_frag_main_image);
         Glide.with(this).load(movie.getImageUrl()).into(movieImage);
     }
 
     private void initMovieTitle() {
-        TextView tvTitle = inflatedView.findViewById(R.id.tv_movie_detail_act_title);
+        TextView tvTitle = inflatedView.findViewById(R.id.tv_movie_detail_frag_title);
         tvTitle.setText(movie.getTitle());
     }
 
     public void initMovieRateImage() {
-        ImageView ivMovieRate = inflatedView.findViewById(R.id.iv_movie_detail_act_movie_rating);
+        ImageView ivMovieRate = inflatedView.findViewById(R.id.iv_movie_detail_frag_movie_rating);
         int imageResource = movie.getMovieRate().getImageResource();
         ivMovieRate.setImageResource(imageResource);
     }
 
     private void initOpeningDay() {
-        TextView tvOpenDay = inflatedView.findViewById(R.id.tv_movie_detail_act_opening_day);
+        TextView tvOpenDay = inflatedView.findViewById(R.id.tv_movie_detail_frag_opening_day);
         tvOpenDay.setText(movie.getOpeningDay());
     }
 
     private void initGenre() {
-        TextView tvGenre = inflatedView.findViewById(R.id.tv_movie_detail_act_genre);
+        TextView tvGenre = inflatedView.findViewById(R.id.tv_movie_detail_frag_genre);
         tvGenre.setText(movie.getGenre());
     }
 
     private void initShowTime() {
-        TextView tvShowTime = inflatedView.findViewById(R.id.tv_movie_detail_act_show_time);
+        TextView tvShowTime = inflatedView.findViewById(R.id.tv_movie_detail_frag_show_time);
         tvShowTime.setText(movie.getShowTime());
     }
 
     private void bindEvaluationView() {
-        btnLike = inflatedView.findViewById(R.id.btn_movie_detail_act_like);
-        btnDislike = inflatedView.findViewById(R.id.btn_movie_detail_act_dislike);
-        tvLikeCount = inflatedView.findViewById(R.id.tv_movie_detail_act_like_count);
-        tvDislikeCount = inflatedView.findViewById(R.id.tv_movie_detail_act_dislike_count);
+        btnLike = inflatedView.findViewById(R.id.btn_movie_detail_frag_like);
+        btnDislike = inflatedView.findViewById(R.id.btn_movie_detail_frag_dislike);
+        tvLikeCount = inflatedView.findViewById(R.id.tv_movie_detail_frag_like_count);
+        tvDislikeCount = inflatedView.findViewById(R.id.tv_movie_detail_frag_dislike_count);
     }
 
     private void initEvaluationButton() {
@@ -197,24 +204,24 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void initReservationRecord() {
-        TextView tvRank = inflatedView.findViewById(R.id.tv_movie_detail_act_ranking);
+        TextView tvRank = inflatedView.findViewById(R.id.tv_movie_detail_frag_ranking);
         tvRank.setText((movie.getReservationRank() + "위"));
 
-        TextView tvRate = inflatedView.findViewById(R.id.tv_movie_detail_act_reservation);
+        TextView tvRate = inflatedView.findViewById(R.id.tv_movie_detail_frag_reservation);
         tvRate.setText((movie.getReservationRate() + "%"));
     }
 
     private void initStarRateScore() {
         float starRate = movie.getStarRate();
-        RatingBar ratingBar = inflatedView.findViewById(R.id.rating_movie_detail_act_star_rating);
+        RatingBar ratingBar = inflatedView.findViewById(R.id.rating_movie_detail_frag_star_rating);
         ratingBar.setRating(starRate / 2);
 
-        TextView tvStarRate = inflatedView.findViewById(R.id.tv_movie_detail_act_star_rate);
+        TextView tvStarRate = inflatedView.findViewById(R.id.tv_movie_detail_frag_star_rate);
         tvStarRate.setText(String.valueOf(starRate));
     }
 
     private void initAccumulation() {
-        TextView tvAccumulation = inflatedView.findViewById(R.id.tv_movie_detail_act_accumulation);
+        TextView tvAccumulation = inflatedView.findViewById(R.id.tv_movie_detail_frag_accumulation);
         String numberFormat = NumberFormat.getNumberInstance(Locale.US).format(movie.getAccumulatedAttendance());
         tvAccumulation.setText((numberFormat + "명"));
     }
@@ -226,17 +233,17 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void initPlot() {
-        TextView tvPlot = inflatedView.findViewById(R.id.tv_movie_detail_act_plot);
+        TextView tvPlot = inflatedView.findViewById(R.id.tv_movie_detail_frag_plot);
         tvPlot.setText(movie.getPlot());
     }
 
     private void initDirector() {
-        TextView tvDirector = inflatedView.findViewById(R.id.tv_movie_detail_act_director);
+        TextView tvDirector = inflatedView.findViewById(R.id.tv_movie_detail_frag_director);
         tvDirector.setText(movie.getDirector());
     }
 
     private void initActor() {
-        TextView tvActor = inflatedView.findViewById(R.id.tv_movie_detail_act_actor);
+        TextView tvActor = inflatedView.findViewById(R.id.tv_movie_detail_frag_actor);
         tvActor.setText(movie.getActress());
     }
 
@@ -317,12 +324,12 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void initReviewWriteBtn() {
-        LinearLayout btn = inflatedView.findViewById(R.id.btn_movie_detail_act_review_write);
+        LinearLayout btn = inflatedView.findViewById(R.id.btn_movie_detail_frag_review_write);
         btn.setOnClickListener(view -> startReviewWriteActivity());
     }
 
     private void initReviewMoreBtn() {
-        ConstraintLayout btn = inflatedView.findViewById(R.id.btn_movie_detail_act_review_more);
+        ConstraintLayout btn = inflatedView.findViewById(R.id.btn_movie_detail_frag_review_more);
         btn.setOnClickListener(view -> startReviewMoreActivity());
     }
 

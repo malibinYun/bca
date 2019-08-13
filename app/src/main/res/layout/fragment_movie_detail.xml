@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/iv_movie_detail_act_main_image"
+                android:id="@+id/iv_movie_detail_frag_main_image"
                 android:layout_width="140dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="16dp"
@@ -41,9 +41,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_movie_detail_act_main_image"
-                app:layout_constraintStart_toEndOf="@+id/iv_movie_detail_act_main_image"
-                app:layout_constraintTop_toTopOf="@+id/iv_movie_detail_act_main_image"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_movie_detail_frag_main_image"
+                app:layout_constraintStart_toEndOf="@+id/iv_movie_detail_frag_main_image"
+                app:layout_constraintTop_toTopOf="@+id/iv_movie_detail_frag_main_image"
                 app:layout_constraintVertical_bias="0.79">
 
                 <LinearLayout
@@ -53,7 +53,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_title"
+                        android:id="@+id/tv_movie_detail_frag_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="군도"
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:id="@+id/iv_movie_detail_act_movie_rating"
+                        android:id="@+id/iv_movie_detail_frag_movie_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_15" />
@@ -82,7 +82,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_opening_day"
+                        android:id="@+id/tv_movie_detail_frag_opening_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2014.07.23"
@@ -102,7 +102,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_genre"
+                        android:id="@+id/tv_movie_detail_frag_genre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="액션"
@@ -116,7 +116,7 @@
                         android:textColor="@android:color/white" />
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_show_time"
+                        android:id="@+id/tv_movie_detail_frag_show_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="137"
@@ -141,7 +141,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/btn_movie_detail_act_like"
+                        android:id="@+id/btn_movie_detail_frag_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/selector_thumb_up" />
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_like_count"
+                        android:id="@+id/tv_movie_detail_frag_like_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15"
@@ -162,7 +162,7 @@
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:id="@+id/btn_movie_detail_act_dislike"
+                        android:id="@+id/btn_movie_detail_frag_dislike"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/selector_thumb_down" />
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_dislike_count"
+                        android:id="@+id/tv_movie_detail_frag_dislike_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
@@ -214,7 +214,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_ranking"
+                        android:id="@+id/tv_movie_detail_frag_ranking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_reservation"
+                        android:id="@+id/tv_movie_detail_frag_reservation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1.8"
@@ -260,7 +260,7 @@
                     android:orientation="horizontal">
 
                     <RatingBar
-                        android:id="@+id/rating_movie_detail_act_star_rating"
+                        android:id="@+id/rating_movie_detail_frag_star_rating"
                         style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -274,7 +274,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_star_rate"
+                        android:id="@+id/tv_movie_detail_frag_star_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="8.2"
@@ -306,7 +306,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_movie_detail_act_accumulation"
+                        android:id="@+id/tv_movie_detail_frag_accumulation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="839,399"
@@ -338,7 +338,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_movie_detail_act_plot"
+                android:id="@+id/tv_movie_detail_frag_plot"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -387,7 +387,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
             <TextView
-                android:id="@+id/tv_movie_detail_act_director"
+                android:id="@+id/tv_movie_detail_frag_director"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -410,7 +410,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
             <TextView
-                android:id="@+id/tv_movie_detail_act_actor"
+                android:id="@+id/tv_movie_detail_frag_actor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -442,7 +442,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/btn_movie_detail_act_review_write"
+                android:id="@+id/btn_movie_detail_frag_review_write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -474,7 +474,7 @@
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/btn_movie_detail_act_review_more"
+                android:id="@+id/btn_movie_detail_frag_review_more"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="16dp"
@@ -521,7 +521,7 @@
             android:background="@android:color/white">
 
             <ImageView
-                android:id="@+id/btn_movie_detail_act_facebook"
+                android:id="@+id/btn_movie_detail_frag_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -533,17 +533,17 @@
                 app:srcCompat="@drawable/ic_facebook" />
 
             <ImageView
-                android:id="@+id/btn_movie_detail_act_kakao"
+                android:id="@+id/btn_movie_detail_frag_kakao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_movie_detail_act_facebook"
+                app:layout_constraintStart_toEndOf="@+id/btn_movie_detail_frag_facebook"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_kakao" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/btn_movie_detail_act_booking"
+                android:id="@+id/btn_movie_detail_frag_booking"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="24dp"
@@ -553,7 +553,7 @@
                 android:background="@color/orange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_movie_detail_act_kakao"
+                app:layout_constraintStart_toEndOf="@+id/btn_movie_detail_frag_kakao"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView

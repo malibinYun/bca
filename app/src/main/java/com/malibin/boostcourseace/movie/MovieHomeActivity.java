@@ -47,12 +47,6 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
         setCurrentFragmentOnBackPressed();
     }
 
-    private void setCurrentFragmentOnBackPressed() {
-        int index = getSupportFragmentManager().getBackStackEntryCount() - 1;
-        FragmentManager.BackStackEntry topOfBackStack = getSupportFragmentManager().getBackStackEntryAt(index);
-        currentFragment = topOfBackStack.getName();
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         DrawerLayout drawer = findViewById(R.id.drawer_movie_home_act);
@@ -78,19 +72,8 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    private void replaceMovieSelectFragment() {
-        boolean isSameFragment = currentFragment.equals(MovieSelectFragment.class.getSimpleName());
-        if (isSameFragment) {
-            return;
-        }
-        Fragment fragment = new MovieSelectFragment();
-        replaceFragment(fragment);
-    }
-
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
+    public void onPointerCaptureChanged(boolean hasCapture) { }
 
     public void replaceFragment(Fragment fragment) {
         String fragmentName = fragment.getClass().getSimpleName();
@@ -100,6 +83,11 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
                 .addToBackStack(fragmentName)
                 .commit();
         currentFragment = fragmentName;
+    }
+
+    public void setAppbarTitle(String title) {
+        ActionBar toolbar = getSupportActionBar();
+        toolbar.setTitle(title);
     }
 
     private void initView() {
@@ -116,11 +104,6 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
         toolbar.setTitle("영화 목록");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-    }
-
-    private void setTitle(String title) {
-        ActionBar toolbar = getSupportActionBar();
-        toolbar.setTitle(title);
     }
 
     private void initDrawableLayout() {
@@ -140,6 +123,21 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
     private void initFirstFragment() {
         Fragment movieSelectFragment = new MovieSelectFragment();
         replaceFragment(movieSelectFragment);
+    }
+
+    private void setCurrentFragmentOnBackPressed() {
+        int index = getSupportFragmentManager().getBackStackEntryCount() - 1;
+        FragmentManager.BackStackEntry topOfBackStack = getSupportFragmentManager().getBackStackEntryAt(index);
+        currentFragment = topOfBackStack.getName();
+    }
+
+    private void replaceMovieSelectFragment() {
+        boolean isSameFragment = currentFragment.equals(MovieSelectFragment.class.getSimpleName());
+        if (isSameFragment) {
+            return;
+        }
+        Fragment fragment = new MovieSelectFragment();
+        replaceFragment(fragment);
     }
 
 }

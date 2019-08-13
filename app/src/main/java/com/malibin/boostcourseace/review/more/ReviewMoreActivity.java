@@ -1,8 +1,10 @@
 package com.malibin.boostcourseace.review.more;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,14 +43,27 @@ public class ReviewMoreActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        setTitle(R.string.review_more_title);
+        initToolbar();
+
+        initMovieShortInfo();
+
+        initReviewWriteBtn();
+        initReviewList();
+    }
+
+    private void initMovieShortInfo() {
         setMovieTitle();
         setMovieRate();
         setStarRatingBar();
         setStarRatingCount();
         setParticipantsCount();
-        initReviewWriteBtn();
-        initReviewList();
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_review_more_act);
+        toolbar.setTitle("한줄평 목록");
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
     }
 
     private void setMovieTitle() {

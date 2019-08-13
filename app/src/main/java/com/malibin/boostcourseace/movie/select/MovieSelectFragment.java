@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.Movie;
+import com.malibin.boostcourseace.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
 import com.malibin.boostcourseace.util.TempData;
 
@@ -30,7 +31,7 @@ public class MovieSelectFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_movie_select, container, false);
+        return inflater.inflate(R.layout.fragment_movie_select, container, false);
     }
 
     @Override
@@ -45,6 +46,7 @@ public class MovieSelectFragment extends Fragment {
         inflatedView = getView();
 
         initMoviePagesView();
+        setActivityAppbarTitle();
     }
 
     private void initMoviePagesView() {
@@ -55,11 +57,13 @@ public class MovieSelectFragment extends Fragment {
                 new MoviePageFragmentStatePagerAdapter(manager);
         adapter.addImageFragments(movies);
 
-        ViewPager moviePager = inflatedView.findViewById(R.id.vp_movie_select_act);
+        ViewPager moviePager = inflatedView.findViewById(R.id.vp_movie_select_frag);
         moviePager.setAdapter(adapter);
     }
 
-
+    private void setActivityAppbarTitle() {
+        ((MovieHomeActivity) getActivity()).setAppbarTitle("영화 목록");
+    }
 
 
 }
