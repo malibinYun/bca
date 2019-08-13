@@ -1,12 +1,9 @@
 package com.malibin.boostcourseace.movie.select;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,24 +23,9 @@ import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
 
 public class MoviePageFragment extends Fragment {
 
-    private View inflatedView;
     private Movie movie;
-
-    public static MoviePageFragment getInstance(String imageUrl) {
-        Bundle bundle = new Bundle();
-        bundle.putString("imageUrl", imageUrl);
-        MoviePageFragment instance = new MoviePageFragment();
-        instance.setArguments(bundle);
-        return instance;
-    }
-
-    public static MoviePageFragment getInstance(int resourceId) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("resourceId", resourceId);
-        MoviePageFragment instance = new MoviePageFragment();
-        instance.setArguments(bundle);
-        return instance;
-    }
+    private View inflatedView;
+    private MovieHomeActivity activity;
 
     public static MoviePageFragment getInstance(Movie movie) {
         Bundle bundle = new Bundle();
@@ -69,7 +51,14 @@ public class MoviePageFragment extends Fragment {
     }
 
     private void initValue() {
+        if (getArguments() == null) {
+            return; // Throw error
+        }
+        if (getActivity() == null) {
+            return; // Throw error
+        }
         movie = getArguments().getParcelable("movie");
+        activity = (MovieHomeActivity) getActivity();
     }
 
     private void initView() {
@@ -78,42 +67,17 @@ public class MoviePageFragment extends Fragment {
     }
 
     private void loadImage() {
-        Activity activity = getActivity();
-
         ImageView imageView = inflatedView.findViewById(R.id.iv_movie_page_frag_image);
-
-        if (getArguments() == null) {
-            return;
-        }
-
-        String imageUrl = getArguments().getString("imageUrl");
-        if (imageUrl != null) {
-            Glide.with(activity).load(imageUrl).into(imageView);
-            return;
-        }
-        Integer resourceId = getArguments().getInt("resourceId");
-//        if (resourceId == null){
-//            return;
-//        }
-        resourceId = movie.getImageUrl();
+        int resourceId = movie.getImageUrl();
         Glide.with(activity).load(resourceId).into(imageView);
-
-
     }
 
     private void initButton() {
         Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
-        btnGoDetail.setOnClickListener(v ->
-                replaceFragment2MovieDetail(movie)
-        );
+        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
     }
 
     public void replaceFragment2MovieDetail(Movie movie) {
-        if (getActivity() == null) {
-            // 잘못된 호출임을 던지는 예외처리
-            return;
-        }
-        MovieHomeActivity activity = (MovieHomeActivity) getActivity();
         MovieDetailFragment fragment = MovieDetailFragment.getInstance(movie);
         activity.replaceFragment(fragment);
     }

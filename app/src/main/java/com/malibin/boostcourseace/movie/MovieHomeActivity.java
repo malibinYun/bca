@@ -1,8 +1,8 @@
 package com.malibin.boostcourseace.movie;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
@@ -29,10 +29,6 @@ public class MovieHomeActivity extends AppCompatActivity {
 
     private void initView() {
         replaceFragment(movieSelectFragment);
-    }
-
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }

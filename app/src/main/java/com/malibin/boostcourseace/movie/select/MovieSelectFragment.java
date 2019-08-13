@@ -9,16 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.Movie;
-import com.malibin.boostcourseace.movie.MovieHomeActivity;
-import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
 import com.malibin.boostcourseace.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
 import com.malibin.boostcourseace.util.TempData;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,14 +23,6 @@ import java.util.List;
  */
 
 public class MovieSelectFragment extends Fragment {
-
-    List<Integer> imageResourceIds = Arrays.asList(
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-            R.drawable.image4,
-            R.drawable.image5,
-            R.drawable.image6);
 
     private List<Movie> movies = TempData.movie();
     private View inflatedView;
@@ -50,9 +38,7 @@ public class MovieSelectFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initView();
-
     }
-
 
     private void initView() {
         inflatedView = getView();

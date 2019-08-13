@@ -3,7 +3,6 @@ package com.malibin.boostcourseace.movie.select.adpater;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.select.MoviePageFragment;
@@ -34,30 +33,15 @@ public class MoviePageFragmentStatePagerAdapter extends FragmentStatePagerAdapte
         return imageFragments.size();
     }
 
-
-    public void addImageFragment(String imageUrl) {
-        MoviePageFragment fragment = MoviePageFragment.getInstance(imageUrl);
-        imageFragments.add(fragment);
-    }
-
-    public void addImageFragment(int resourceId) {
-        MoviePageFragment fragment = MoviePageFragment.getInstance(resourceId);
-        imageFragments.add(fragment);
-    }
-
-    public void addImageFragment(Movie movie) {
-        MoviePageFragment fragment = MoviePageFragment.getInstance(movie);
-        imageFragments.add(fragment);
-    }
-
-    public void addImageFragment(Fragment fragment) {
-        imageFragments.add(fragment);
-    }
-
     public void addImageFragments(List<Movie> movies) {
         for (Movie movie : movies) {
             addImageFragment(movie);
         }
+    }
+
+    private void addImageFragment(Movie movie) {
+        MoviePageFragment fragment = MoviePageFragment.getInstance(movie);
+        imageFragments.add(fragment);
     }
 
 }
