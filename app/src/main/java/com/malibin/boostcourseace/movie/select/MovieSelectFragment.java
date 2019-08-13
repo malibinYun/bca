@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MovieSelectFragment extends Fragment {
 
-    private List<Movie> movies = TempData.movie();
+    private List<Movie> movies;
     private View inflatedView;
 
     @Nullable
@@ -37,6 +37,7 @@ public class MovieSelectFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        movies = TempData.movie();
         initView();
     }
 
@@ -55,6 +56,8 @@ public class MovieSelectFragment extends Fragment {
         ViewPager moviePager = inflatedView.findViewById(R.id.vp_movie_select_act);
         moviePager.setAdapter(adapter);
     }
+
+
 
 
 }
