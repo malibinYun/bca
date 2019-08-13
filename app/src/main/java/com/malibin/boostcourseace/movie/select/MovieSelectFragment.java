@@ -48,7 +48,9 @@ public class MovieSelectFragment extends Fragment {
     }
 
     private void initMoviePagesView() {
-        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentManager manager = getChildFragmentManager();
+        // 여기서 getActivity().getSupportFragmentManager() 을 써서 Backstack 에서 돌아올때 뷰페이저가 없던것이다.
+        // getChildFragmentManager() 으로 교체시 잘된다. 블로그 쓸 것.
         MoviePageFragmentStatePagerAdapter adapter =
                 new MoviePageFragmentStatePagerAdapter(manager);
         adapter.addImageFragments(movies);

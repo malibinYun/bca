@@ -215,7 +215,7 @@ public class MovieDetailFragment extends Fragment {
 
     private void initAccumulation() {
         TextView tvAccumulation = inflatedView.findViewById(R.id.tv_movie_detail_act_accumulation);
-        String numberFormat = NumberFormat.getNumberInstance(Locale.US).format(movie.getReservationRate());
+        String numberFormat = NumberFormat.getNumberInstance(Locale.US).format(movie.getAccumulatedAttendance());
         tvAccumulation.setText((numberFormat + "명"));
     }
 

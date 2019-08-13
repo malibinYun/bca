@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,8 @@ import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.select.MovieSelectFragment;
 
 public class MovieHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +36,55 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
+
+        boolean isLastStack = getSupportFragmentManager().getBackStackEntryCount() == 1;
+        if (isLastStack) {
+            finish();
+            return;
+        }
+
         super.onBackPressed();
+        setCurrentFragmentOnBackPressed();
+    }
+
+    private void setCurrentFragmentOnBackPressed() {
+        int index = getSupportFragmentManager().getBackStackEntryCount() - 1;
+        FragmentManager.BackStackEntry topOfBackStack = getSupportFragmentManager().getBackStackEntryAt(index);
+        currentFragment = topOfBackStack.getName();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        DrawerLayout drawer = findViewById(R.id.drawer_movie_home_act);
+        drawer.closeDrawer(GravityCompat.START);
         int id = menuItem.getItemId();
 
         if (id == R.id.menu_movie_list) {
+            replaceMovieSelectFragment();
+        }
 
-        } else if (id == R.id.menu_movie_api) {
-
-        } else if (id == R.id.menu_movie_reserve) {
-
-        } else if (id == R.id.menu_settings) {
+        if (id == R.id.menu_movie_api) {
 
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_movie_home_act);
-        drawer.closeDrawer(GravityCompat.START);
+        if (id == R.id.menu_movie_reserve) {
+
+        }
+
+        if (id == R.id.menu_settings) {
+
+        }
+
         return true;
+    }
+
+    private void replaceMovieSelectFragment() {
+        boolean isSameFragment = currentFragment.equals(MovieSelectFragment.class.getSimpleName());
+        if (isSameFragment) {
+            return;
+        }
+        Fragment fragment = new MovieSelectFragment();
+        replaceFragment(fragment);
     }
 
     @Override
@@ -61,11 +93,13 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
     }
 
     public void replaceFragment(Fragment fragment) {
+        String fragmentName = fragment.getClass().getSimpleName();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_movie_home_act, fragment)
-                //.addToBackStack(null)
+                .addToBackStack(fragmentName)
                 .commit();
+        currentFragment = fragmentName;
     }
 
     private void initView() {
