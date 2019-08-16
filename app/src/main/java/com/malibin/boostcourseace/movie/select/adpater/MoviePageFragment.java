@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie.select;
+package com.malibin.boostcourseace.movie.select.adpater;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,10 +29,10 @@ public class MoviePageFragment extends Fragment {
     private MovieHomeActivity activity;
 
     public static MoviePageFragment getInstance(Movie movie) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("movie", movie);
+        //Bundle bundle = new Bundle();
+        //bundle.putParcelable("movie", movie);//@TODO 여기 Parcelable 지운곳
         MoviePageFragment instance = new MoviePageFragment();
-        instance.setArguments(bundle);
+        //instance.setArguments(bundle);
         return instance;
     }
 
@@ -63,7 +63,7 @@ public class MoviePageFragment extends Fragment {
         if (getActivity() == null) {
             return; // Throw error
         }
-        movie = getArguments().getParcelable("movie");
+        //movie = getArguments().getParcelable("movie");//@TODO 여기 Parcelable 지운곳
         activity = (MovieHomeActivity) getActivity();
     }
 

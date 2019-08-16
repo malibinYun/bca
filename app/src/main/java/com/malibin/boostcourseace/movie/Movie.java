@@ -5,19 +5,21 @@ import android.os.Parcelable;
 
 import com.malibin.boostcourseace.util.MovieRate;
 
+import java.util.List;
+
 /**
  * Created By Yun Hyeok
  * on 8월 13, 2019
  */
 
-public class Movie implements Parcelable {
+public class Movie {
 
     private int imageUrl; //나중에 String 으로 바꿀 것
     private String title;
     private MovieRate movieRate;
     private String openingDay;
     private String genre;
-    private String showTime;
+    private int showTime;
 
     private int likeCount;
     private int dislikeCount;
@@ -31,19 +33,11 @@ public class Movie implements Parcelable {
     private String director;
     private String actress;
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
+    private List<String> photoLinks;
+    private List<String> videoLinks;
+    private List<String> outLinks;
 
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
-
-    public Movie(int imageUrl, String title, MovieRate movieRate, String openingDay, String genre, String showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress) {
+    public Movie(int imageUrl, String title, MovieRate movieRate, String openingDay, String genre, int showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress, List<String> photoLinks, List<String> videoLinks, List<String> outLinks) {
         this.imageUrl = imageUrl;
         this.title = title;
         this.movieRate = movieRate;
@@ -59,48 +53,9 @@ public class Movie implements Parcelable {
         this.plot = plot;
         this.director = director;
         this.actress = actress;
-    }
-
-    protected Movie(Parcel in) {
-        imageUrl = in.readInt();
-        title = in.readString();
-        movieRate = (MovieRate) in.readValue(MovieRate.class.getClassLoader());
-        openingDay = in.readString();
-        genre = in.readString();
-        showTime = in.readString();
-        likeCount = in.readInt();
-        dislikeCount = in.readInt();
-        reservationRank = in.readInt();
-        reservationRate = in.readFloat();
-        starRate = in.readFloat();
-        accumulatedAttendance = in.readFloat();
-        plot = in.readString();
-        director = in.readString();
-        actress = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(imageUrl);
-        dest.writeString(title);
-        dest.writeValue(movieRate);
-        dest.writeString(openingDay);
-        dest.writeString(genre);
-        dest.writeString(showTime);
-        dest.writeInt(likeCount);
-        dest.writeInt(dislikeCount);
-        dest.writeInt(reservationRank);
-        dest.writeFloat(reservationRate);
-        dest.writeFloat(starRate);
-        dest.writeFloat(accumulatedAttendance);
-        dest.writeString(plot);
-        dest.writeString(director);
-        dest.writeString(actress);
+        this.photoLinks = photoLinks;
+        this.videoLinks = videoLinks;
+        this.outLinks = outLinks;
     }
 
     public int getImageUrl() {
@@ -123,7 +78,7 @@ public class Movie implements Parcelable {
         return genre;
     }
 
-    public String getShowTime() {
+    public int getShowTime() {
         return showTime;
     }
 
@@ -161,5 +116,17 @@ public class Movie implements Parcelable {
 
     public String getActress() {
         return actress;
+    }
+
+    public List<String> getPhotoLinks() {
+        return photoLinks;
+    }
+
+    public List<String> getVideoLinks() {
+        return videoLinks;
+    }
+
+    public List<String> getOutLinks() {
+        return outLinks;
     }
 }

@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.malibin.boostcourseace.movie.Movie;
-import com.malibin.boostcourseace.movie.select.MoviePageFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -59,10 +59,10 @@ public class MovieDetailFragment extends Fragment {
     private TextView tvDislikeCount;
 
     public static MovieDetailFragment getInstance(Movie movie) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("movie", movie);
+        //Bundle bundle = new Bundle();
+        //bundle.putParcelable("movie", movie);//@TODO 여기 Parcelable 지운곳
         MovieDetailFragment instance = new MovieDetailFragment();
-        instance.setArguments(bundle);
+        //instance.setArguments(bundle);
         return instance;
     }
 
@@ -102,7 +102,7 @@ public class MovieDetailFragment extends Fragment {
             //여기서 throw Error
             return;
         }
-        movie = getArguments().getParcelable("movie");
+        //movie = getArguments().getParcelable("movie"); //@TODO 여기 Parcelable 지운곳
 
         likeCount = movie.getLikeCount();
         dislikeCount = movie.getDislikeCount();
@@ -166,7 +166,7 @@ public class MovieDetailFragment extends Fragment {
 
     private void initShowTime() {
         TextView tvShowTime = inflatedView.findViewById(R.id.tv_movie_detail_frag_show_time);
-        tvShowTime.setText(movie.getShowTime());
+        tvShowTime.setText(String.valueOf(movie.getShowTime()));
     }
 
     private void bindEvaluationView() {
