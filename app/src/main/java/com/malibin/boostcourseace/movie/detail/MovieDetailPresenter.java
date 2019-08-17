@@ -1,6 +1,7 @@
 package com.malibin.boostcourseace.movie.detail;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.movie.Movie;
@@ -42,6 +43,66 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
             @Override
             public void onFailure(VolleyError error) {
                 view.setLoadingIndicator(false);
+            }
+        });
+    }
+
+    @Override
+    public void sendLikeRequest(int movieId) {
+        repository.sendLikeDisLikeRequest(movieId, "likeyn=Y", new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Malibin Debug", "response : " + response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendLikeCancelRequest(int movieId) {
+        repository.sendLikeDisLikeRequest(movieId, "likeyn=N", new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Malibin Debug", "response : " + response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendDisLikeRequest(int movieId) {
+        repository.sendLikeDisLikeRequest(movieId, "dislikeyn=Y", new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Malibin Debug", "response : " + response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendDisLikeCancelRequest(int movieId) {
+        repository.sendLikeDisLikeRequest(movieId, "dislikeyn=N", new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Malibin Debug", "response : " + response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
             }
         });
     }

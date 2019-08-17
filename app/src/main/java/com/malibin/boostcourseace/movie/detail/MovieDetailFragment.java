@@ -53,11 +53,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private MovieDetailContract.Presenter presenter;
 
-    private View inflatedView;
     private Movie movie;
+    private int movieId;
     private int likeCount;
     private int dislikeCount;
 
+    private View inflatedView;
     private LikeState currentLikeState = LikeState.NOTHING;
     private ImageView btnLike;
     private ImageView btnDislike;
@@ -84,6 +85,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
         initView();
         initPresenter();
+        initMovieId();
         sendMovieDetailRequest();
     }
 
@@ -132,11 +134,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         presenter = new MovieDetailPresenter(this, repository);
     }
 
-    private void sendMovieDetailRequest() {
+    private void initMovieId() {
         if (getArguments() == null) {
             throw new NullPointerException();
         }
-        int movieId = getArguments().getInt("movieId");
+        movieId = getArguments().getInt("movieId");
+    }
+
+    private void sendMovieDetailRequest() {
         presenter.sendMovieDetailRequest(movieId);
     }
 
@@ -223,6 +228,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
         btnLike.setOnClickListener(view -> {
             if (currentLikeState == LikeState.LIKE) {
+                presenter.sendLikeCancelRequest(movieId);
                 rollbackCount(view);
                 return;
             }
@@ -231,6 +237,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
         btnDislike.setOnClickListener(view -> {
             if (currentLikeState == LikeState.DISLIKE) {
+                presenter.sendDisLikeCancelRequest(movieId);
                 rollbackCount(view);
                 return;
             }
@@ -315,6 +322,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void likeClick() {
+        if (currentLikeState != LikeState.NOTHING) {
+            presenter.sendDisLikeCancelRequest(movieId);
+        }
+        presenter.sendLikeRequest(movieId);
+
         currentLikeState = LikeState.LIKE;
         btnLike.setSelected(true);
         tvLikeCount.setText(String.valueOf(likeCount + 1));
@@ -323,6 +335,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void dislikeClick() {
+        if (currentLikeState != LikeState.NOTHING) {
+            presenter.sendLikeCancelRequest(movieId);
+        }
+        presenter.sendDisLikeRequest(movieId);
+
         currentLikeState = LikeState.DISLIKE;
         btnLike.setSelected(false);
         tvLikeCount.setText(String.valueOf(likeCount));

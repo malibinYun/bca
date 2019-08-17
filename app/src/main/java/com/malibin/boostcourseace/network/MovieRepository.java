@@ -3,7 +3,6 @@ package com.malibin.boostcourseace.network;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -17,7 +16,6 @@ import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
 import com.malibin.boostcourseace.network.response.ResponseTemplate;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -103,5 +101,29 @@ public class MovieRepository {
         }.getType();
         ResponseTemplate<List<MovieDetailResponseDTO>> responseDTO = gson.fromJson(response, type);
         return responseDTO.getResult().get(0).toMovie();
+    }
+
+    public void sendLikeDisLikeRequest(int movieId, String query, CallBack<String> callBack) {
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                baseUrl + "/movie/increaseLikeDisLike?id=" + movieId + "&" + query,
+                response -> {
+                    String result = getStringResult(response);
+                    callBack.onResponse(result);
+                },
+                callBack::onFailure
+        ) {
+
+        };
+        Log.d("Malibin Debug", "url : " + request.getUrl());
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+
+    private String getStringResult(String response) {
+        Type type = new TypeToken<ResponseTemplate<String>>() {
+        }.getType();
+        ResponseTemplate<String> responseDTO = gson.fromJson(response, type);
+        return responseDTO.getResult();
     }
 }

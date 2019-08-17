@@ -22,5 +22,13 @@ public interface MovieDetailContract {
 
         void sendMovieDetailRequest(int movieId);
 
+        void sendLikeRequest(int movieId);
+
+        void sendLikeCancelRequest(int movieId);
+
+        void sendDisLikeRequest(int movieId);
+
+        void sendDisLikeCancelRequest(int movieId);
+
     }
 }
