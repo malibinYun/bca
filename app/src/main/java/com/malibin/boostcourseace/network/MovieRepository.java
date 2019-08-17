@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created By Yun Hyeok
@@ -30,78 +31,51 @@ import java.util.Map;
 public class MovieRepository {
 
     private static MovieRepository INSTANCE;
-    public static RequestQueue requestQueue;
+    private static RequestQueue requestQueue;
+    private static Gson gson;
 
-    private Gson gson = new Gson();
+    private final String baseUrl = "http://boostcourse-appapi.connect.or.kr:10000";
 
     public static MovieRepository getInstance(Context context) {
-
+        if (INSTANCE != null)
+            return INSTANCE;
         requestQueue = Volley.newRequestQueue(context);
-
-        return new MovieRepository();
+        gson = new Gson();
+        return INSTANCE = new MovieRepository();
     }
 
-    public <T> void sendRequest(
-            Map<String, String> params,
-            CallBack<T> callBack
+    private MovieRepository() {
 
+    }
+
+    public void sendMovieListRequest(
+            Map<String, String> params,
+            CallBack<List<MovieShortInfo>> callBack
     ) {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                "http://boostcourse-appapi.connect.or.kr:10000/movie/readMovieList",
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.d("Malibin Debug", "response : " + response);
-
-                        //0~75 , 맨마지막 지워보자
-                        String str = response;
-                        str = str.substring(0, str.length() - 1);//마지막지움
-                        str = str.substring(76);
-
-                        Log.d("Malibin Debug", "str : " + str);
-
-                        T responseDTO = gson.fromJson(str, new TypeToken<T>() {
-                        }.getType());
-
-//                        Type tType = new TypeToken<T>(){}.getType();
-//                        ResponseTemplate<T> responseDTO = gson.fromJson(response, TypeToken.getParameterized(ResponseTemplate.class, tType).getType());
-
-                        Log.d("Malibin Debug", "responseDTO : " + responseDTO.toString());
-
-
-                        callBack.onResponse(responseDTO);
-                    }
+                baseUrl + "/movie/readMovieList",
+                response -> {
+                    Type type = new TypeToken<ResponseTemplate<List<MovieShortInfoResponseDTO>>>() {}.getType();
+                    ResponseTemplate<List<MovieShortInfoResponseDTO>> responseDTO = gson.fromJson(response, type);
+                    List<MovieShortInfo> movieShortInfoList = toMovieShortInfoList(responseDTO.getResult());
+                    callBack.onResponse(movieShortInfoList);
                 },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Malibin Debug", "error : " + error);
-                        callBack.onFailure(error);
-                    }
-                }
+                callBack::onFailure
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<>();
                 return params;
             }
         };
-
         request.setShouldCache(false);
         requestQueue.add(request);
-
     }
 
-    private void processResponse(String response) {
-        Gson gson = new Gson();
-
-        MovieDetailResponseDTO movieDetailResponseDTO = gson.fromJson(response, MovieDetailResponseDTO.class);
-
-
+    private List<MovieShortInfo> toMovieShortInfoList(List<MovieShortInfoResponseDTO> list) {
+        return list.stream()
+                .map(MovieShortInfoResponseDTO::toMovieShortInfo)
+                .collect(Collectors.toList());
     }
 
 }

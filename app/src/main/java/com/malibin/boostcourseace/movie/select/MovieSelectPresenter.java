@@ -1,11 +1,10 @@
 package com.malibin.boostcourseace.movie.select;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.android.volley.VolleyError;
+import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.network.MovieRepository;
-import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
-import com.malibin.boostcourseace.network.response.ResponseTemplate;
 import com.malibin.boostcourseace.util.CallBack;
 
 import java.util.HashMap;
@@ -16,35 +15,45 @@ import java.util.Map;
  * Created By Yun Hyeok
  * on 8월 16, 2019
  */
+
 public class MovieSelectPresenter implements MovieSelectContract.Presenter {
 
-    public MovieSelectContract.View view;
-    public MovieRepository movieRepository;
-    public Context context;
+    private MovieSelectContract.View view;
+    private MovieRepository movieRepository;
 
-    @Override
-    public void start() {
-        movieRepository = MovieRepository.getInstance(context);
+    public MovieSelectPresenter(
+            @NonNull MovieSelectContract.View view,
+            @NonNull MovieRepository movieRepository
+    ) {
+        this.view = view;
+        this.movieRepository = movieRepository;
     }
 
     @Override
-    public void getMovieShortInfoList() {
-        movieRepository.sendRequest(tempParams(),
-                new CallBack<List<MovieShortInfoResponseDTO>>() {
+    public void start() {
+
+    }
+
+    @Override
+    public void sendMovieListRequest() {
+        view.setLoadingIndicator(true);
+        movieRepository.sendMovieListRequest(movieListParam(),
+                new CallBack<List<MovieShortInfo>>() {
                     @Override
-                    public void onResponse(List<MovieShortInfoResponseDTO> response) {
-                        view.showMovieSelectPages(response);
+                    public void onResponse(List<MovieShortInfo> response) {
+                        view.initMovieSelectPages(response);
+                        view.setLoadingIndicator(false);
                     }
 
                     @Override
                     public void onFailure(VolleyError error) {
-
+                        view.setLoadingIndicator(false);
                     }
                 }
         );
     }
 
-    Map<String, String> tempParams() {
+    private Map<String, String> movieListParam() {
         HashMap<String, String> result = new HashMap<>();
         result.put("type", "1");
         return result;

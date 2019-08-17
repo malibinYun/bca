@@ -1,7 +1,6 @@
 package com.malibin.boostcourseace.movie.select;
 
 import com.malibin.boostcourseace.movie.MovieShortInfo;
-import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
 import com.malibin.boostcourseace.util.BasePresenter;
 import com.malibin.boostcourseace.util.BaseView;
 
@@ -18,13 +17,13 @@ public interface MovieSelectContract {
 
         void setLoadingIndicator(boolean active);
 
-        void showMovieSelectPages(List<MovieShortInfoResponseDTO> responseDTOs);
+        void initMovieSelectPages(List<MovieShortInfo> response);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void getMovieShortInfoList();
+        void sendMovieListRequest();
 
     }
 

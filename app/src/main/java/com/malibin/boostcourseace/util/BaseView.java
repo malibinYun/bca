@@ -6,6 +6,4 @@ package com.malibin.boostcourseace.util;
  */
 public interface BaseView<T extends BasePresenter> {
 
-    void setPresenter(T presenter);
-
 }

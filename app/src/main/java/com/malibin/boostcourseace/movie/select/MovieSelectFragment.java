@@ -10,17 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
-import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
-import com.malibin.boostcourseace.util.TempData;
+import com.malibin.boostcourseace.network.MovieRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created By Yun Hyeok
@@ -32,7 +30,6 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
     private MovieSelectContract.Presenter presenter;
 
     private List<MovieShortInfo> moviePages;
-    private List<Movie> movies;
     private View inflatedView;
 
     @Nullable
@@ -46,38 +43,37 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         super.onViewCreated(view, savedInstanceState);
 
         initPresenter();
-        initServer();
-
-
-        //movies = TempData.movie();
         initView();
+        sendMovieListRequest();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Malibin Debug", "onDestroyView() called");
+        presenter = null;
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        ProgressBar progressBar = inflatedView.findViewById(R.id.progressBar_movie_select_frag);
+        int visibility = active ? View.VISIBLE : View.INVISIBLE;
+        progressBar.setVisibility(visibility);
     }
 
     @Override
-    public void setPresenter(MovieSelectContract.Presenter presenter) {
-
-    }
-
-    @Override
-    public void showMovieSelectPages(List<MovieShortInfoResponseDTO> responseDTOs) {
-        this.moviePages = convert(responseDTOs);
-        initMoviePagesView();
+    public void initMovieSelectPages(List<MovieShortInfo> response) {
+        this.moviePages = response;
+        initMovieSelectPagesView();
     }
 
     void initPresenter() {
-        presenter = new MovieSelectPresenter();
-        ((MovieSelectPresenter) presenter).context = getActivity();
-        ((MovieSelectPresenter) presenter).view = this;
+        MovieRepository repository = MovieRepository.getInstance(getActivity());
+        presenter = new MovieSelectPresenter(this, repository);
     }
 
-    void initServer() {
-        presenter.start();
-        presenter.getMovieShortInfoList();
+    void sendMovieListRequest() {
+        presenter.sendMovieListRequest();
     }
 
     private void initView() {
@@ -85,7 +81,7 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         setActivityAppbarTitle();
     }
 
-    private void initMoviePagesView() {
+    private void initMovieSelectPagesView() {
         FragmentManager manager = getChildFragmentManager();
         MoviePageFragmentStatePagerAdapter adapter =
                 new MoviePageFragmentStatePagerAdapter(manager);
@@ -97,14 +93,6 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
 
     private void setActivityAppbarTitle() {
         ((MovieHomeActivity) getActivity()).setAppbarTitle("영화 목록");
-    }
-
-    List<MovieShortInfo> convert(List<MovieShortInfoResponseDTO> list) {
-        Log.d("Malibin Debug", "list : " + list);
-        Log.d("Malibin Debug", "list : " + list.get(0).getClass().getSimpleName());
-
-        return list.stream().map(MovieShortInfoResponseDTO::toMovieShortInfo)
-                .collect(Collectors.toList());
     }
 
 }
