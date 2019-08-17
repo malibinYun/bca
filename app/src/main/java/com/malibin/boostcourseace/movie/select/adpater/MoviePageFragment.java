@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
 
 /**
@@ -24,15 +25,15 @@ import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
 
 public class MoviePageFragment extends Fragment {
 
-    private Movie movie;
+    private MovieShortInfo movieShortInfo;
     private View inflatedView;
     private MovieHomeActivity activity;
 
-    public static MoviePageFragment getInstance(Movie movie) {
-        //Bundle bundle = new Bundle();
-        //bundle.putParcelable("movie", movie);//@TODO 여기 Parcelable 지운곳
+    public static MoviePageFragment getInstance(MovieShortInfo movieShortInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("movieShortInfo", movieShortInfo);//@TODO 여기 Parcelable 지운곳
         MoviePageFragment instance = new MoviePageFragment();
-        //instance.setArguments(bundle);
+        instance.setArguments(bundle);
         return instance;
     }
 
@@ -63,7 +64,7 @@ public class MoviePageFragment extends Fragment {
         if (getActivity() == null) {
             return; // Throw error
         }
-        //movie = getArguments().getParcelable("movie");//@TODO 여기 Parcelable 지운곳
+        movieShortInfo = getArguments().getParcelable("movieShortInfo");//@TODO 여기 Parcelable 지운곳
         activity = (MovieHomeActivity) getActivity();
     }
 
@@ -74,8 +75,8 @@ public class MoviePageFragment extends Fragment {
     }
 
     private void initButton() {
-        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
-        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
+//        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
+//        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
     }
 
     private void bindViewWithContents() {
@@ -83,16 +84,16 @@ public class MoviePageFragment extends Fragment {
         TextView tvReservationRate = inflatedView.findViewById(R.id.tv_movie_page_frag_reservation_rate);
         TextView tvMovieRate = inflatedView.findViewById(R.id.tv_movie_page_frag_rate);
 
-        String reservationRate = movie.getReservationRate() + "%";
-        tvTitle.setText(movie.getTitle());
+        String reservationRate = movieShortInfo.getReservationRate() + "%";
+        tvTitle.setText(movieShortInfo.getTitle());
         tvReservationRate.setText(reservationRate);
-        tvMovieRate.setText(movie.getMovieRate().getText());
+        tvMovieRate.setText(movieShortInfo.getMovieRate().getText());
     }
 
     private void loadImage() {
         ImageView imageView = inflatedView.findViewById(R.id.iv_movie_page_frag_image);
-        int resourceId = movie.getImageUrl();
-        Glide.with(activity).load(resourceId).into(imageView);
+        String imageUrl = movieShortInfo.getImageUrl();
+        Glide.with(activity).load(imageUrl).into(imageView);
     }
 
 

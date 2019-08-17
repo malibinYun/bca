@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.malibin.boostcourseace.movie.Movie;
+import com.malibin.boostcourseace.movie.MovieShortInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,14 @@ public class MoviePageFragmentStatePagerAdapter extends FragmentStatePagerAdapte
         return imageFragments.size();
     }
 
-    public void addImageFragments(List<Movie> movies) {
-        for (Movie movie : movies) {
-            addImageFragment(movie);
+    public void addImageFragments(List<MovieShortInfo> movieShortInfoList) {
+        for (MovieShortInfo movieShortInfo : movieShortInfoList) {
+            addImageFragment(movieShortInfo);
         }
     }
 
-    private void addImageFragment(Movie movie) {
-        MoviePageFragment fragment = MoviePageFragment.getInstance(movie);
+    private void addImageFragment(MovieShortInfo movieShortInfo) {
+        MoviePageFragment fragment = MoviePageFragment.getInstance(movieShortInfo);
         imageFragments.add(fragment);
     }
 

@@ -61,7 +61,7 @@ public class MovieDetailResponseDTO {
     public Movie toMovie() {
         MovieRate movieRate = MovieRate.findByRate(grade);
         return new Movie(0, title, movieRate, date, genre, duration, like, dislike, reservation_grade
-                , reservation_rate, audience_rating, audience, synopsis, director, actor);
+                , reservation_rate, audience_rating, audience, synopsis, director, actor, photos, videos, outlinks);
         //showtime string인거 바꿀것
     }
 
