@@ -3,12 +3,15 @@ package com.malibin.boostcourseace.network.response;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.util.MovieRate;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created By Yun Hyeok
  * on 8월 16, 2019
  */
+
 public class MovieDetailResponseDTO {
     private String title;               // 제목
     private String date;                // 개봉연월일
@@ -16,14 +19,14 @@ public class MovieDetailResponseDTO {
     private float audience_rating;      // 관람객 평점
     private float reviewer_rating;      // 기자 평론가 평점
     private float reservation_rate;     // 예매율
-    private int reservation_grade;    // 예매율 순위
+    private int reservation_grade;      // 예매율 순위
 
     private int grade;                  // 관람등급 12 /15 /19
     private String thumb;               // 썸네일 이미지 링크
     private String image;               // 원본 이미지 링크
-    private List<String> photos;        // 포토 링크
-    private List<String> videos;        // 동영상 링크
-    private List<String> outlinks;      // 외부 링크
+    private String photos;              // 포토 링크
+    private String videos;              // 동영상 링크
+    private String outlinks;            // 외부 링크
 
     private String genre;               // 장르
     private int duration;               // 러닝타임
@@ -34,7 +37,7 @@ public class MovieDetailResponseDTO {
     private int like;                   // 좋아요 총 수
     private int dislike;                // 싫어요 총 수
 
-    public MovieDetailResponseDTO(String title, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image, List<String> photos, List<String> videos, List<String> outlinks, String genre, int duration, int audience, String synopsis, String director, String actor, int like, int dislike) {
+    public MovieDetailResponseDTO(String title, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image, String photos, String videos, String outlinks, String genre, int duration, int audience, String synopsis, String director, String actor, int like, int dislike) {
         this.title = title;
         this.date = date;
         this.user_rating = user_rating;
@@ -59,10 +62,13 @@ public class MovieDetailResponseDTO {
     }
 
     public Movie toMovie() {
+        List<String> emptyList = Collections.emptyList();
+        List<String> photoList = photos != null ? Arrays.asList(photos.split(",")) : emptyList;
+        List<String> videoList = videos != null ? Arrays.asList(videos.split(",")) : emptyList;
+        List<String> outlinkList = outlinks != null ? Arrays.asList(outlinks.split(",")) : emptyList;
         MovieRate movieRate = MovieRate.findByRate(grade);
-        return new Movie(0, title, movieRate, date, genre, duration, like, dislike, reservation_grade
-                , reservation_rate, audience_rating, audience, synopsis, director, actor, photos, videos, outlinks);
-        //showtime string인거 바꿀것
+        return new Movie(image, title, movieRate, date, genre, duration, like, dislike, reservation_grade
+                , reservation_rate, audience_rating, audience, synopsis, director, actor, photoList, videoList, outlinkList);
     }
 
     public String getTitle() {
@@ -105,15 +111,15 @@ public class MovieDetailResponseDTO {
         return image;
     }
 
-    public List<String> getPhotos() {
+    public String getPhotos() {
         return photos;
     }
 
-    public List<String> getVideos() {
+    public String getVideos() {
         return videos;
     }
 
-    public List<String> getOutlinks() {
+    public String getOutlinks() {
         return outlinks;
     }
 

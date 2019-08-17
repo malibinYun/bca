@@ -10,6 +10,7 @@ import com.malibin.boostcourseace.util.MovieRate;
  * on 8월 16, 2019
  */
 public class MovieShortInfo implements Parcelable {
+    private int id;
     private String imageUrl;
     private String title;
     private String titleEng;
@@ -31,7 +32,8 @@ public class MovieShortInfo implements Parcelable {
         }
     };
 
-    public MovieShortInfo(String imageUrl, String title, String titleEng, int reservationRank, float reservationRate, MovieRate movieRate, String openingDay) {
+    public MovieShortInfo(int id, String imageUrl, String title, String titleEng, int reservationRank, float reservationRate, MovieRate movieRate, String openingDay) {
+        this.id = id;
         this.imageUrl = imageUrl;
         this.title = title;
         this.titleEng = titleEng;
@@ -42,6 +44,7 @@ public class MovieShortInfo implements Parcelable {
     }
 
     protected MovieShortInfo(Parcel in) {
+        id = in.readInt();
         imageUrl = in.readString();
         title = in.readString();
         titleEng = in.readString();
@@ -58,6 +61,7 @@ public class MovieShortInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(imageUrl);
         dest.writeString(title);
         dest.writeString(titleEng);
@@ -65,6 +69,10 @@ public class MovieShortInfo implements Parcelable {
         dest.writeFloat(reservationRate);
         dest.writeValue(movieRate);
         dest.writeString(openingDay);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getImageUrl() {

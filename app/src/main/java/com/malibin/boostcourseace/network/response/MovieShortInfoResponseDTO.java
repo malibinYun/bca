@@ -8,6 +8,7 @@ import com.malibin.boostcourseace.util.MovieRate;
  * on 8월 16, 2019
  */
 public class MovieShortInfoResponseDTO {
+    private int id;                 // 영화 아이디
     private String title;           // 영화 제목
     private String title_eng;       // 영화 영문 제목
     private String date;            // 개봉 연월일 (yyyy-MM-dd)
@@ -22,7 +23,8 @@ public class MovieShortInfoResponseDTO {
     private String thumb;           // 썸네일 이미지 링크
     private String image;           // 원본 이미지 링크
 
-    public MovieShortInfoResponseDTO(String title, String title_eng, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image) {
+    public MovieShortInfoResponseDTO(int id, String title, String title_eng, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image) {
+        this.id = id;
         this.title = title;
         this.title_eng = title_eng;
         this.date = date;
@@ -39,7 +41,11 @@ public class MovieShortInfoResponseDTO {
     public MovieShortInfo toMovieShortInfo() {
         MovieRate movieRate = MovieRate.findByRate(grade);
         return new MovieShortInfo(
-                image, title, title_eng, reservation_grade, reservation_rate, movieRate, date);
+                id, image, title, title_eng, reservation_grade, reservation_rate, movieRate, date);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

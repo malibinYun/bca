@@ -31,7 +31,7 @@ public class MoviePageFragment extends Fragment {
 
     public static MoviePageFragment getInstance(MovieShortInfo movieShortInfo) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("movieShortInfo", movieShortInfo);//@TODO 여기 Parcelable 지운곳
+        bundle.putParcelable("movieShortInfo", movieShortInfo);
         MoviePageFragment instance = new MoviePageFragment();
         instance.setArguments(bundle);
         return instance;
@@ -52,19 +52,19 @@ public class MoviePageFragment extends Fragment {
         loadImage();
     }
 
-    public void replaceFragment2MovieDetail(Movie movie) {
-        MovieDetailFragment fragment = MovieDetailFragment.getInstance(movie);
+    public void replaceFragment2MovieDetail(int movieId) {
+        MovieDetailFragment fragment = MovieDetailFragment.getInstance(movieId);
         activity.replaceFragment(fragment);
     }
 
     private void initValue() {
         if (getArguments() == null) {
-            return; // Throw error
+            throw new NullPointerException();
         }
         if (getActivity() == null) {
-            return; // Throw error
+            throw new NullPointerException();
         }
-        movieShortInfo = getArguments().getParcelable("movieShortInfo");//@TODO 여기 Parcelable 지운곳
+        movieShortInfo = getArguments().getParcelable("movieShortInfo");
         activity = (MovieHomeActivity) getActivity();
     }
 
@@ -75,8 +75,9 @@ public class MoviePageFragment extends Fragment {
     }
 
     private void initButton() {
-//        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
-//        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movie));
+        int movieId = movieShortInfo.getId();
+        Button btnGoDetail = inflatedView.findViewById(R.id.btn_movie_page_frag_detail);
+        btnGoDetail.setOnClickListener(v -> replaceFragment2MovieDetail(movieId));
     }
 
     private void bindViewWithContents() {

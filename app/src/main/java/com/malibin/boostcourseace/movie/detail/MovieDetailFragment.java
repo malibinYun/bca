@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.review.more.ReviewMoreActivity;
@@ -42,10 +46,12 @@ import java.util.Locale;
  * on 8월 13, 2019
  */
 
-public class MovieDetailFragment extends Fragment {
+public class MovieDetailFragment extends Fragment implements MovieDetailContract.View {
 
     private final int REQUEST_CODE_REVIEW_WRITE = 10000;
     private final int REQUEST_CODE_REVIEW_MORE = 10001;
+
+    private MovieDetailContract.Presenter presenter;
 
     private View inflatedView;
     private Movie movie;
@@ -58,11 +64,11 @@ public class MovieDetailFragment extends Fragment {
     private TextView tvLikeCount;
     private TextView tvDislikeCount;
 
-    public static MovieDetailFragment getInstance(Movie movie) {
-        //Bundle bundle = new Bundle();
-        //bundle.putParcelable("movie", movie);//@TODO 여기 Parcelable 지운곳
+    public static MovieDetailFragment getInstance(int movieId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("movieId", movieId);
         MovieDetailFragment instance = new MovieDetailFragment();
-        //instance.setArguments(bundle);
+        instance.setArguments(bundle);
         return instance;
     }
 
@@ -76,8 +82,15 @@ public class MovieDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initValue();
         initView();
+        initPresenter();
+        sendMovieDetailRequest();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter = null;
     }
 
     @Override
@@ -97,21 +110,48 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
-    private void initValue() {
-        if (getArguments() == null) {
-            //여기서 throw Error
-            return;
-        }
-        //movie = getArguments().getParcelable("movie"); //@TODO 여기 Parcelable 지운곳
+    @Override
+    public void setLoadingIndicator(boolean active) {
+        int visibility = active ? View.VISIBLE : View.INVISIBLE;
+        ProgressBar progressBar = inflatedView.findViewById(R.id.progressBar_movie_detail_frag);
+        progressBar.setVisibility(visibility);
+        notifyDataLoaded(!active);
+    }
+
+    @Override
+    public void initMovieDetailInfo(Movie movie) {
+        this.movie = movie;
 
         likeCount = movie.getLikeCount();
         dislikeCount = movie.getDislikeCount();
+        initMovieDetailView();
+    }
+
+    private void initPresenter() {
+        MovieRepository repository = MovieRepository.getInstance(getActivity());
+        presenter = new MovieDetailPresenter(this, repository);
+    }
+
+    private void sendMovieDetailRequest() {
+        if (getArguments() == null) {
+            throw new NullPointerException();
+        }
+        int movieId = getArguments().getInt("movieId");
+        presenter.sendMovieDetailRequest(movieId);
+    }
+
+    private void notifyDataLoaded(boolean active) {
+        int visibility = active ? View.VISIBLE : View.INVISIBLE;
+        NestedScrollView wholeView = inflatedView.findViewById(R.id.zone_movie_detail_frag_whole);
+        wholeView.setVisibility(visibility);
     }
 
     private void initView() {
         inflatedView = getView();
-
         setActivityAppbarTitle();
+    }
+
+    private void initMovieDetailView() {
 
         initPosterZone();
 
@@ -120,6 +160,7 @@ public class MovieDetailFragment extends Fragment {
         initDetailZone();
 
         initReviewZone();
+
     }
 
     private void setActivityAppbarTitle() {

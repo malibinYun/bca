@@ -1,8 +1,5 @@
 package com.malibin.boostcourseace.movie;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.List;
 
 public class Movie {
 
-    private int imageUrl; //나중에 String 으로 바꿀 것
+    private String imageUrl;
     private String title;
     private MovieRate movieRate;
     private String openingDay;
@@ -37,7 +34,7 @@ public class Movie {
     private List<String> videoLinks;
     private List<String> outLinks;
 
-    public Movie(int imageUrl, String title, MovieRate movieRate, String openingDay, String genre, int showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress, List<String> photoLinks, List<String> videoLinks, List<String> outLinks) {
+    public Movie(String imageUrl, String title, MovieRate movieRate, String openingDay, String genre, int showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress, List<String> photoLinks, List<String> videoLinks, List<String> outLinks) {
         this.imageUrl = imageUrl;
         this.title = title;
         this.movieRate = movieRate;
@@ -58,7 +55,7 @@ public class Movie {
         this.outLinks = outLinks;
     }
 
-    public int getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 

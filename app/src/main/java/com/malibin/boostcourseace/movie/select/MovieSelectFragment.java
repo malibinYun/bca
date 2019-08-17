@@ -50,7 +50,6 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("Malibin Debug", "onDestroyView() called");
         presenter = null;
     }
 

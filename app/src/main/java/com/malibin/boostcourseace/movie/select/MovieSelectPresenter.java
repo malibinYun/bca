@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.network.MovieRepository;
-import com.malibin.boostcourseace.util.CallBack;
+import com.malibin.boostcourseace.network.CallBack;
 
 import java.util.HashMap;
 import java.util.List;
