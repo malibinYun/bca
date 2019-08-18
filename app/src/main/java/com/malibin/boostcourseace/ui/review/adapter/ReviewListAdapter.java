@@ -61,4 +61,9 @@ public class ReviewListAdapter extends BaseAdapter {
         items.addAll(reviews);
         notifyDataSetChanged();
     }
+
+    public void deleteAllReviews() {
+        items.clear();
+        notifyDataSetChanged();
+    }
 }

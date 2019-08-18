@@ -110,6 +110,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         }
         if (requestCode == REQUEST_CODE_REVIEW_MORE) {
             showReturnFromReviewMore();
+            refreshReviewList();
         }
     }
 
@@ -437,4 +438,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private void showReturnFromReviewMore() {
         Toast.makeText(getActivity(), "모두보기 화면에서 돌아왔습니다.", Toast.LENGTH_SHORT).show();
     }
+
+    private void refreshReviewList() {
+        ListView listView = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
+        ReviewListAdapter adapter = (ReviewListAdapter) listView.getAdapter();
+        adapter.deleteAllReviews();
+        presenter.sendRecentReviewRequest(movieId);
+    }
+
 }
