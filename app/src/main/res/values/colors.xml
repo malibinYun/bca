@@ -12,4 +12,6 @@
     <color name="dark_purple">#4B0082</color>
 
     <color name="backgroundGray">#F4F4F4</color>
+
+    <color name="transparentBlack">#90000000</color>
 </resources>

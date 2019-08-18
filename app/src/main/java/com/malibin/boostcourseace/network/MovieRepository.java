@@ -9,6 +9,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
@@ -160,5 +161,24 @@ public class MovieRepository {
                 .collect(Collectors.toList());
 
         return new ReviewListDTO(responseDTO.getTotalCount(), reviews);
+    }
+
+    public void sendReviewSaveRequest(
+            MovieReviewSaveRequestDTO dto,
+            CallBack<String> callBack
+    ) {
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                baseUrl + "/movie/createComment" + dto.toParams(),
+                response -> {
+                    String result = getStringResult(response);
+                    callBack.onResponse(result);
+                },
+                callBack::onFailure
+        ) {
+
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
     }
 }

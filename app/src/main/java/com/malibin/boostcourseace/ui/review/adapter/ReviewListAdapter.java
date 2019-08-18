@@ -53,7 +53,7 @@ public class ReviewListAdapter extends BaseAdapter {
     }
 
     public void addReview(MovieReview review) {
-        items.add(review);
+        items.add(0, review);
         notifyDataSetChanged();
     }
 

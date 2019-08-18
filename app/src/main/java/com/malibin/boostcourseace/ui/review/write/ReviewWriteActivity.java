@@ -3,22 +3,28 @@ package com.malibin.boostcourseace.ui.review.write;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.ui.review.MovieReview;
 import com.malibin.boostcourseace.util.MovieRate;
 
-public class ReviewWriteActivity extends AppCompatActivity {
+public class ReviewWriteActivity extends AppCompatActivity implements ReviewWriteContract.View {
+
+    private ReviewWriteContract.Presenter presenter;
 
     private ReviewWriteDTO reviewWriteDTO;
 
@@ -29,6 +35,21 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
         getIntentData();
         initView();
+        initPresenter();
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+        ProgressBar progressBar = findViewById(R.id.progressBar_review_write_act);
+        int visibility = active ? View.VISIBLE : View.INVISIBLE;
+        progressBar.setVisibility(visibility);
+        setSaveBtnEnabled(!active);
+    }
+
+    @Override
+    public void notifyReviewSaved() {
+        sendReviewToPreviousActivity();
+        finish();
     }
 
     private void getIntentData() {
@@ -41,6 +62,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
         setMovieRate();
         initSaveBtn();
         initCancelBtn();
+    }
+
+    private void initPresenter() {
+        MovieRepository repository = MovieRepository.getInstance(this);
+        presenter = new ReviewWritePresenter(this, repository);
     }
 
     private void initToolbar() {
@@ -69,8 +95,21 @@ public class ReviewWriteActivity extends AppCompatActivity {
     }
 
     private void clickSaveBtn() {
-        saveReview();
-        finish();
+        if (getEditTextContent().isEmpty()) {
+            showContentNeededToast();
+            return;
+        }
+        setSaveBtnEnabled(false);
+        sendReviewSaveRequest();
+    }
+
+    private void setSaveBtnEnabled(boolean state) {
+        ConstraintLayout saveBtn = findViewById(R.id.btn_review_write_act_save);
+        saveBtn.setEnabled(state);
+    }
+
+    private void showContentNeededToast() {
+        Toast.makeText(this, R.string.content_needed, Toast.LENGTH_SHORT).show();
     }
 
     private void initCancelBtn() {
@@ -83,12 +122,12 @@ public class ReviewWriteActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveReview() {
+    private void sendReviewSaveRequest() {
+        int movieId = reviewWriteDTO.getMovieId();
         String content = getEditTextContent();
         float starRate = getRatingBarScore();
-        Log.d("Malibin Debug", "content : " + content + ", starRate : " + starRate);
-        sendReviewToPreviousActivity();
-        // 리뷰를 저장하는 로직 작성
+        MovieReviewSaveRequestDTO dto = new MovieReviewSaveRequestDTO(movieId, "모메", starRate, content);
+        presenter.saveReview(dto);
     }
 
     private String getEditTextContent() {
@@ -104,7 +143,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private MovieReview getMovieReview() {
         float starRate = getRatingBarScore();
         String content = getEditTextContent();
-        return new MovieReview(0, "", "userNickname", "방금", starRate, content, 0);
+        return new MovieReview(0, "", "모메", "방금", starRate, content, 0);
     }
 
     private void sendReviewToPreviousActivity() {
