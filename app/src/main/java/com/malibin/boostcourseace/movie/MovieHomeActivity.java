@@ -73,7 +73,8 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) { }
+    public void onPointerCaptureChanged(boolean hasCapture) {
+    }
 
 
     @Override
@@ -139,9 +140,10 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
         if (isSameFragment) {
             return;
         }
-        MovieSelectFragment fragment = new MovieSelectFragment();
-        fragment.setMovieHomeActivityCall(this);
-        replaceFragment(fragment);
+        getSupportFragmentManager().popBackStack();
+//        MovieSelectFragment fragment = new MovieSelectFragment();
+//        fragment.setMovieHomeActivityCall(this);
+//        replaceFragment(fragment);
     }
 
 }
