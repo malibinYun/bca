@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
 
@@ -27,7 +28,7 @@ public class MoviePageFragment extends Fragment {
 
     private MovieShortInfo movieShortInfo;
     private View inflatedView;
-    private MovieHomeActivity activity;
+    private MovieHomeActivityCall activityCall;
 
     public static MoviePageFragment getInstance(MovieShortInfo movieShortInfo) {
         Bundle bundle = new Bundle();
@@ -52,20 +53,20 @@ public class MoviePageFragment extends Fragment {
         loadImage();
     }
 
-    public void replaceFragment2MovieDetail(int movieId) {
+    public void setMovieHomeActivityCall(MovieHomeActivityCall activityCall) {
+        this.activityCall = activityCall;
+    }
+
+    private void replaceFragment2MovieDetail(int movieId) {
         MovieDetailFragment fragment = MovieDetailFragment.getInstance(movieId);
-        activity.replaceFragment(fragment);
+        activityCall.replaceFragment(fragment);
     }
 
     private void initValue() {
         if (getArguments() == null) {
             throw new NullPointerException();
         }
-        if (getActivity() == null) {
-            throw new NullPointerException();
-        }
         movieShortInfo = getArguments().getParcelable("movieShortInfo");
-        activity = (MovieHomeActivity) getActivity();
     }
 
     private void initView() {
@@ -94,7 +95,7 @@ public class MoviePageFragment extends Fragment {
     private void loadImage() {
         ImageView imageView = inflatedView.findViewById(R.id.iv_movie_page_frag_image);
         String imageUrl = movieShortInfo.getImageUrl();
-        Glide.with(activity).load(imageUrl).into(imageView);
+        Glide.with(getActivity()).load(imageUrl).into(imageView);
     }
 
 

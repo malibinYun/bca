@@ -84,7 +84,6 @@ public class MovieRepository {
                 Request.Method.GET,
                 baseUrl + "/movie/readMovie?id=" + movieId,
                 response -> {
-                    Log.d("Malibin Debug", response);
                     Movie movie = toMovie(response);
                     callBack.onResponse(movie);
                 },

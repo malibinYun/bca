@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
 import com.malibin.boostcourseace.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
 import com.malibin.boostcourseace.network.MovieRepository;
@@ -28,6 +29,7 @@ import java.util.List;
 public class MovieSelectFragment extends Fragment implements MovieSelectContract.View {
 
     private MovieSelectContract.Presenter presenter;
+    private MovieHomeActivityCall activityCall;
 
     private List<MovieShortInfo> moviePages;
     private View inflatedView;
@@ -66,12 +68,16 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         initMovieSelectPagesView();
     }
 
-    void initPresenter() {
+    public void setMovieHomeActivityCall(MovieHomeActivityCall activityCall) {
+        this.activityCall = activityCall;
+    }
+
+    private void initPresenter() {
         MovieRepository repository = MovieRepository.getInstance(getActivity());
         presenter = new MovieSelectPresenter(this, repository);
     }
 
-    void sendMovieListRequest() {
+    private void sendMovieListRequest() {
         presenter.sendMovieListRequest();
     }
 
@@ -83,7 +89,7 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
     private void initMovieSelectPagesView() {
         FragmentManager manager = getChildFragmentManager();
         MoviePageFragmentStatePagerAdapter adapter =
-                new MoviePageFragmentStatePagerAdapter(manager);
+                new MoviePageFragmentStatePagerAdapter(manager, activityCall);
         adapter.addImageFragments(moviePages);
 
         ViewPager moviePager = inflatedView.findViewById(R.id.vp_movie_select_frag);

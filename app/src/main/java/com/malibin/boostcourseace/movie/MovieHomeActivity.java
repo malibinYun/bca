@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.movie.select.MovieSelectFragment;
 
-public class MovieHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MovieHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MovieHomeActivityCall {
 
     private String currentFragment;
 
@@ -75,6 +75,8 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) { }
 
+
+    @Override
     public void replaceFragment(Fragment fragment) {
         String fragmentName = fragment.getClass().getSimpleName();
         getSupportFragmentManager()
@@ -121,8 +123,9 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void initFirstFragment() {
-        Fragment movieSelectFragment = new MovieSelectFragment();
-        replaceFragment(movieSelectFragment);
+        MovieSelectFragment fragment = new MovieSelectFragment();
+        fragment.setMovieHomeActivityCall(this);
+        replaceFragment(fragment);
     }
 
     private void setCurrentFragmentOnBackPressed() {
@@ -136,7 +139,8 @@ public class MovieHomeActivity extends AppCompatActivity implements NavigationVi
         if (isSameFragment) {
             return;
         }
-        Fragment fragment = new MovieSelectFragment();
+        MovieSelectFragment fragment = new MovieSelectFragment();
+        fragment.setMovieHomeActivityCall(this);
         replaceFragment(fragment);
     }
 

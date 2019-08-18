@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
 
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ import java.util.List;
 public class MoviePageFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Fragment> imageFragments = new ArrayList<>();
+    private MovieHomeActivityCall activityCall;
 
-    public MoviePageFragmentStatePagerAdapter(FragmentManager fm) {
+    public MoviePageFragmentStatePagerAdapter(FragmentManager fm, MovieHomeActivityCall activityCall) {
         super(fm);
+        this.activityCall = activityCall;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class MoviePageFragmentStatePagerAdapter extends FragmentStatePagerAdapte
 
     private void addImageFragment(MovieShortInfo movieShortInfo) {
         MoviePageFragment fragment = MoviePageFragment.getInstance(movieShortInfo);
+        fragment.setMovieHomeActivityCall(activityCall);
         imageFragments.add(fragment);
     }
 
