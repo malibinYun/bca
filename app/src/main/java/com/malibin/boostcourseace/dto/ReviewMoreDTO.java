@@ -14,6 +14,7 @@ public class ReviewMoreDTO implements Parcelable {
     private float starRate;
     private String title;
     private MovieRate movieRate;
+    private int participants;
 
     public static final Creator<ReviewMoreDTO> CREATOR = new Creator<ReviewMoreDTO>() {
         @Override
@@ -27,16 +28,18 @@ public class ReviewMoreDTO implements Parcelable {
         }
     };
 
-    public ReviewMoreDTO(String title, MovieRate movieRate, float starRate) {
+    public ReviewMoreDTO(String title, MovieRate movieRate, float starRate, int participants) {
         this.starRate = starRate;
         this.title = title;
         this.movieRate = movieRate;
+        this.participants = participants;
     }
 
     protected ReviewMoreDTO(Parcel in) {
         starRate = in.readFloat();
         title = in.readString();
         movieRate = (MovieRate) in.readValue(MovieRate.class.getClassLoader());
+        participants = in.readInt();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class ReviewMoreDTO implements Parcelable {
         dest.writeFloat(starRate);
         dest.writeString(title);
         dest.writeValue(movieRate);
+        dest.writeInt(participants);
     }
 
     @Override
@@ -57,6 +61,7 @@ public class ReviewMoreDTO implements Parcelable {
                 "starRate='" + starRate + '\'' +
                 ", title=" + title +
                 ", movieRate=" + movieRate +
+                ", participants=" + participants +
                 '}';
     }
 
@@ -70,5 +75,9 @@ public class ReviewMoreDTO implements Parcelable {
 
     public float getStarRate() {
         return starRate;
+    }
+
+    public int getParticipants() {
+        return participants;
     }
 }

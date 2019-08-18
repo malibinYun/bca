@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.VolleyError;
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.network.CallBack;
 import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 
 /**
  * Created By Yun Hyeok
@@ -43,6 +45,22 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
             @Override
             public void onFailure(VolleyError error) {
                 view.setLoadingIndicator(false);
+            }
+        });
+    }
+
+    @Override
+    public void sendRecentReviewRequest(int movieId) {
+        MovieReviewListRequestDTO dto = new MovieReviewListRequestDTO(movieId, "3", null, null);
+        repository.sendMovieReviewListRequest(dto, new CallBack<ReviewListDTO>() {
+            @Override
+            public void onResponse(ReviewListDTO response) {
+                view.initRecentReviews(response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
             }
         });
     }

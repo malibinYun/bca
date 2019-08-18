@@ -9,11 +9,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.movie.MovieShortInfo;
+import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 import com.malibin.boostcourseace.network.response.MovieDetailResponseDTO;
+import com.malibin.boostcourseace.network.response.MovieReviewResponseDTO;
 import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
 import com.malibin.boostcourseace.network.response.ResponseTemplate;
+import com.malibin.boostcourseace.review.MovieReview;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -24,6 +28,7 @@ import java.util.stream.Collectors;
  * Created By Yun Hyeok
  * on 8월 16, 2019
  */
+
 public class MovieRepository {
 
     private static MovieRepository INSTANCE;
@@ -124,5 +129,36 @@ public class MovieRepository {
         }.getType();
         ResponseTemplate<String> responseDTO = gson.fromJson(response, type);
         return responseDTO.getResult();
+    }
+
+    public void sendMovieReviewListRequest(
+            MovieReviewListRequestDTO dto,
+            CallBack<ReviewListDTO> callBack
+    ) {
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                baseUrl + "/movie/readCommentList" + dto.toParams(),
+                response -> {
+                    ReviewListDTO result = toMovieReviewList(response);
+                    callBack.onResponse(result);
+                },
+                callBack::onFailure
+        ) {
+
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+
+    private ReviewListDTO toMovieReviewList(String response) {
+        Type type = new TypeToken<ResponseTemplate<List<MovieReviewResponseDTO>>>() {
+        }.getType();
+        ResponseTemplate<List<MovieReviewResponseDTO>> responseDTO = gson.fromJson(response, type);
+        List<MovieReview> reviews = responseDTO.getResult()
+                .stream()
+                .map(MovieReviewResponseDTO::toMovieReview)
+                .collect(Collectors.toList());
+
+        return new ReviewListDTO(responseDTO.getTotalCount(), reviews);
     }
 }

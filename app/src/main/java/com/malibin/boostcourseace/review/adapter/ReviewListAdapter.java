@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.review.MovieReview;
 import com.malibin.boostcourseace.review.MovieReviewView;
 
@@ -15,9 +16,9 @@ public class ReviewListAdapter extends BaseAdapter {
     private Context context;
     private List<MovieReview> items;
 
-    public ReviewListAdapter(Context context, List<MovieReview> items) {
+    public ReviewListAdapter(Context context, ReviewListDTO dto) {
         this.context = context;
-        this.items = items;
+        this.items = dto.getReviews();
     }
 
     @Override

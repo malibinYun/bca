@@ -104,7 +104,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private MovieReview getMovieReview() {
         float starRate = getRatingBarScore();
         String content = getEditTextContent();
-        return new MovieReview("", "userNickname", "방금", starRate, content, 0);
+        return new MovieReview(0, "", "userNickname", "방금", starRate, content, 0);
     }
 
     private void sendReviewToPreviousActivity() {

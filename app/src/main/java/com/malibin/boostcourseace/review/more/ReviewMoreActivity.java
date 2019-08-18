@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.review.MovieReview;
@@ -27,7 +28,6 @@ import java.util.Locale;
 public class ReviewMoreActivity extends AppCompatActivity {
 
     private ReviewMoreDTO reviewMoreDTO;
-    private int participantsCount = 1142;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class ReviewMoreActivity extends AppCompatActivity {
     }
 
     private void setParticipantsCount() {
-        String count = NumberFormat.getNumberInstance(Locale.US).format(participantsCount);
+        String count = NumberFormat.getNumberInstance(Locale.US).format(reviewMoreDTO.getParticipants());
         String text = "(" + count + "명 참여)";
         TextView textView = findViewById(R.id.tv_review_more_act_people_count);
         textView.setText(text);
@@ -118,24 +118,24 @@ public class ReviewMoreActivity extends AppCompatActivity {
 
     private void initReviewList() {
         ListView reviewList = findViewById(R.id.rv_review_more_review_list);
-        ReviewListAdapter adapter = new ReviewListAdapter(this, tempData());
+        ReviewListAdapter adapter = new ReviewListAdapter(this, new ReviewListDTO(reviewMoreDTO.getParticipants(), tempData()));
         reviewList.setAdapter(adapter);
     }
 
     private List<MovieReview> tempData() {
         ArrayList<MovieReview> result = new ArrayList<>();
-        result.add(new MovieReview("", "모메", "10분전", 10f, "적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.", 0));
-        result.add(new MovieReview("", "모메", "10분전", 3.7f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용dㅁㄴㅇㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄷㄹㄴㄹㄴㄷㄹㄴㄷㄹ", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 10f, "적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.", 0));
+        result.add(new MovieReview(0, "", "모메", "10분전", 3.7f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용dㅁㄴㅇㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄷㄹㄴㄹㄴㄷㄹㄴㄷㄹ", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
+        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
         return result;
     }
 }

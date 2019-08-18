@@ -1,5 +1,6 @@
 package com.malibin.boostcourseace.movie.detail;
 
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.movie.Movie;
 import com.malibin.boostcourseace.util.BasePresenter;
 import com.malibin.boostcourseace.util.BaseView;
@@ -16,11 +17,15 @@ public interface MovieDetailContract {
 
         void initMovieDetailInfo(Movie movie);
 
+        void initRecentReviews(ReviewListDTO dto);
+
     }
 
     interface Presenter extends BasePresenter {
 
         void sendMovieDetailRequest(int movieId);
+
+        void sendRecentReviewRequest(int movieId);
 
         void sendLikeRequest(int movieId);
 

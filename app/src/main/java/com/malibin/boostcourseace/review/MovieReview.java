@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MovieReview implements Parcelable {
+    private int reviewId;
     private String profile;
     private String nickname;
     private String time;
@@ -23,7 +24,8 @@ public class MovieReview implements Parcelable {
         }
     };
 
-    public MovieReview(String profile, String nickname, String time, float starRate, String content, int recommendCount) {
+    public MovieReview(int reviewId, String profile, String nickname, String time, float starRate, String content, int recommendCount) {
+        this.reviewId = reviewId;
         this.profile = profile;
         this.nickname = nickname;
         this.time = time;
@@ -33,6 +35,7 @@ public class MovieReview implements Parcelable {
     }
 
     protected MovieReview(Parcel in) {
+        reviewId = in.readInt();
         profile = in.readString();
         nickname = in.readString();
         time = in.readString();
@@ -48,6 +51,7 @@ public class MovieReview implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(reviewId);
         dest.writeString(profile);
         dest.writeString(nickname);
         dest.writeString(time);
@@ -59,6 +63,7 @@ public class MovieReview implements Parcelable {
     @Override
     public String toString() {
         return "MovieReview{" +
+                "reviewId='" + reviewId + '\'' +
                 "profile='" + profile + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", time='" + time + '\'' +
@@ -66,6 +71,10 @@ public class MovieReview implements Parcelable {
                 ", content='" + content + '\'' +
                 ", recommendCount=" + recommendCount +
                 '}';
+    }
+
+    public int getReviewId() {
+        return reviewId;
     }
 
     public String getProfile() {

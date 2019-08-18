@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.dto.ReviewListDTO;
 import com.malibin.boostcourseace.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.movie.Movie;
@@ -65,6 +66,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private TextView tvLikeCount;
     private TextView tvDislikeCount;
 
+    private ReviewListDTO reviewListDTO;
+
     public static MovieDetailFragment getInstance(int movieId) {
         Bundle bundle = new Bundle();
         bundle.putInt("movieId", movieId);
@@ -87,6 +90,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         initPresenter();
         initMovieId();
         sendMovieDetailRequest();
+        sendRecentReviewsRequest();
     }
 
     @Override
@@ -129,6 +133,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         initMovieDetailView();
     }
 
+    @Override
+    public void initRecentReviews(ReviewListDTO dto) {
+        reviewListDTO = dto;
+        initReviewZone();
+    }
+
     private void initPresenter() {
         MovieRepository repository = MovieRepository.getInstance(getActivity());
         presenter = new MovieDetailPresenter(this, repository);
@@ -143,6 +153,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void sendMovieDetailRequest() {
         presenter.sendMovieDetailRequest(movieId);
+    }
+
+    private void sendRecentReviewsRequest() {
+        presenter.sendRecentReviewRequest(movieId);
     }
 
     private void notifyDataLoaded(boolean active) {
@@ -163,8 +177,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         initGradeRecordZone();
 
         initDetailZone();
-
-        initReviewZone();
 
     }
 
@@ -349,18 +361,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void initReviewList() {
         ListView reviewList = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        ReviewListAdapter adapter = new ReviewListAdapter(getActivity(), tempData());
+        ReviewListAdapter adapter = new ReviewListAdapter(getActivity(), reviewListDTO);
         reviewList.setAdapter(adapter);
         setListViewHeightBasedOnChildren(reviewList);
-    }
-
-    private List<MovieReview> tempData() {
-        ArrayList<MovieReview> result = new ArrayList<>();
-        result.add(new MovieReview("", "모메", "10분전", 10f, "적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.", 0));
-        result.add(new MovieReview("", "모메", "10분전", 3.7f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview("", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        return result;
     }
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
@@ -415,7 +418,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         String movieTitle = movie.getTitle();
         MovieRate rate = movie.getMovieRate();
         float starRate = movie.getStarRate();
-        return new ReviewMoreDTO(movieTitle, rate, starRate);
+        int participants = reviewListDTO.getTotalCount();
+        return new ReviewMoreDTO(movieTitle, rate, starRate, participants);
     }
 
     private void appendReceivedReview(MovieReview review) {

@@ -9,15 +9,17 @@ public class ResponseTemplate<T> {
     private String message;
     private int code;
     private String resultType;
+    private int totalCount;
     private T result;
 
     public ResponseTemplate() {
     }
 
-    public ResponseTemplate(String message, int code, String resultType, T result) {
+    public ResponseTemplate(String message, int code, String resultType, int totalCount, T result) {
         this.message = message;
         this.code = code;
         this.resultType = resultType;
+        this.totalCount = totalCount;
         this.result = result;
     }
 
@@ -31,6 +33,10 @@ public class ResponseTemplate<T> {
 
     public String getResultType() {
         return resultType;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
     }
 
     public T getResult() {
