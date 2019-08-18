@@ -1,8 +1,11 @@
 package com.malibin.boostcourseace.ui.review.more;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,13 +31,15 @@ import java.util.Locale;
 
 public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreContract.View {
 
+    private final int REQUEST_CODE_REVIEW_WRITE = 10003;
+    private final int REQUEST_LENGTH = 20;
+
     private ReviewMoreContract.Presenter presenter;
     private ReviewListAdapter adapter;
 
     private ReviewMoreDTO reviewMoreDTO;
     private int reviewStartIdx = 0;
 
-    private final int REQUEST_LENGTH = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,20 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         initView();
 
         sendReviewListRequest();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_REVIEW_WRITE) {
+            if (resultCode == Activity.RESULT_OK) {
+                MovieReview receivedData = data.getParcelableExtra("review");
+                appendReceivedReview(receivedData);
+                showWriteReviewSaved();
+                return;
+            }
+            showWriteReviewCanceled();
+        }
     }
 
     @Override
@@ -140,7 +159,7 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         ReviewWriteDTO dto = getReviewWriteDTO();
         Intent intent = new Intent(this, ReviewWriteActivity.class);
         intent.putExtra("dto", dto);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_REVIEW_WRITE);
     }
 
     private ReviewWriteDTO getReviewWriteDTO() {
@@ -154,6 +173,20 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         ListView reviewList = findViewById(R.id.rv_review_more_review_list);
         adapter = new ReviewListAdapter(this);
         reviewList.setAdapter(adapter);
+    }
+
+    private void appendReceivedReview(MovieReview review) {
+        adapter.addReview(review);
+    }
+
+    private void showWriteReviewSaved() {
+        View view = findViewById(R.id.progressBar_review_more_act);
+        Snackbar.make(view, R.string.snack_bar_review_saved, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void showWriteReviewCanceled() {
+        View view = findViewById(R.id.progressBar_review_more_act);
+        Snackbar.make(view, R.string.snack_bar_review_canceled, Snackbar.LENGTH_SHORT).show();
     }
 
 }
