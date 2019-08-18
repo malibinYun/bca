@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie.select.adpater;
+package com.malibin.boostcourseace.ui.movie.select.adpater;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.movie.Movie;
-import com.malibin.boostcourseace.movie.MovieHomeActivity;
-import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.movie.MovieShortInfo;
-import com.malibin.boostcourseace.movie.detail.MovieDetailFragment;
+import com.malibin.boostcourseace.ui.movie.Movie;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.movie.detail.MovieDetailFragment;
 
 /**
  * Created By Yun Hyeok

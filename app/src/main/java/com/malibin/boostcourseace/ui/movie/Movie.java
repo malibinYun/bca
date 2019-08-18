@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie;
+package com.malibin.boostcourseace.ui.movie;
 
 import com.malibin.boostcourseace.util.MovieRate;
 

@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.review.write;
+package com.malibin.boostcourseace.ui.review.write;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.review.MovieReview;
+import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
+import com.malibin.boostcourseace.ui.review.MovieReview;
 import com.malibin.boostcourseace.util.MovieRate;
 
 public class ReviewWriteActivity extends AppCompatActivity {

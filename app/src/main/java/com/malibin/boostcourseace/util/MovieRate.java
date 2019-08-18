@@ -8,6 +8,7 @@ import java.util.Arrays;
  * Created By Yun Hyeok
  * on 8월 03, 2019
  */
+
 public enum MovieRate {
     ALL(0, R.drawable.ic_all, "전체 관람가"),
     TWELVE(12, R.drawable.ic_12, "12세 관람가"),

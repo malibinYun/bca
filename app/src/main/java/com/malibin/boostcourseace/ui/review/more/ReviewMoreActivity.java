@@ -1,33 +1,40 @@
-package com.malibin.boostcourseace.review.more;
+package com.malibin.boostcourseace.ui.review.more;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.dto.ReviewListDTO;
-import com.malibin.boostcourseace.dto.ReviewMoreDTO;
-import com.malibin.boostcourseace.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.review.MovieReview;
-import com.malibin.boostcourseace.review.adapter.ReviewListAdapter;
-import com.malibin.boostcourseace.review.write.ReviewWriteActivity;
+import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
+import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
+import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
+import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ReviewMoreActivity extends AppCompatActivity {
+public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreContract.View {
+
+    private ReviewMoreContract.Presenter presenter;
+    private ReviewListAdapter adapter;
 
     private ReviewMoreDTO reviewMoreDTO;
+    private int reviewStartIdx = 0;
+
+    private final int REQUEST_LENGTH = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +42,32 @@ public class ReviewMoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_more);
 
         getIntentData();
+        initPresenter();
         initView();
+
+        sendReviewListRequest();
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+        ProgressBar progressBar = findViewById(R.id.progressBar_review_more_act);
+        int visibility = active ? View.VISIBLE : View.INVISIBLE;
+        progressBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void addReviews(List<MovieReview> reviews) {
+        adapter.addReviews(reviews);
+        reviewStartIdx += REQUEST_LENGTH;
     }
 
     private void getIntentData() {
         reviewMoreDTO = getIntent().getParcelableExtra("dto");
+    }
+
+    private void initPresenter() {
+        MovieRepository repository = MovieRepository.getInstance(this);
+        presenter = new ReviewMorePresenter(this, repository);
     }
 
     private void initView() {
@@ -49,6 +77,11 @@ public class ReviewMoreActivity extends AppCompatActivity {
 
         initReviewWriteBtn();
         initReviewList();
+    }
+
+    private void sendReviewListRequest() {
+        int movieId = reviewMoreDTO.getMovieId();
+        presenter.sendReviewListRequest(movieId, reviewStartIdx, REQUEST_LENGTH);
     }
 
     private void initMovieShortInfo() {
@@ -111,31 +144,16 @@ public class ReviewMoreActivity extends AppCompatActivity {
     }
 
     private ReviewWriteDTO getReviewWriteDTO() {
+        int movieId = reviewMoreDTO.getMovieId();
         MovieRate rate = reviewMoreDTO.getMovieRate();
         String movieTitle = reviewMoreDTO.getTitle();
-        return new ReviewWriteDTO(movieTitle, rate);
+        return new ReviewWriteDTO(movieId, movieTitle, rate);
     }
 
     private void initReviewList() {
         ListView reviewList = findViewById(R.id.rv_review_more_review_list);
-        ReviewListAdapter adapter = new ReviewListAdapter(this, new ReviewListDTO(reviewMoreDTO.getParticipants(), tempData()));
+        adapter = new ReviewListAdapter(this);
         reviewList.setAdapter(adapter);
     }
 
-    private List<MovieReview> tempData() {
-        ArrayList<MovieReview> result = new ArrayList<>();
-        result.add(new MovieReview(0, "", "모메", "10분전", 10f, "적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.", 0));
-        result.add(new MovieReview(0, "", "모메", "10분전", 3.7f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용dㅁㄴㅇㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄴㄷㄹㄷㄹㄴㄹㄴㄷㄹㄴㄷㄹ", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 4.2f, "리뷰 내용용요용ㅇ용", 2));
-        result.add(new MovieReview(0, "", "모메", "10분전", 2f, "리뷰 내용용요용ㅇ용", 2));
-        return result;
-    }
 }

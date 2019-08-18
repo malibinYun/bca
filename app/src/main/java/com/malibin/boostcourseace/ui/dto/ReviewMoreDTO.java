@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.dto;
+package com.malibin.boostcourseace.ui.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,6 +11,7 @@ import com.malibin.boostcourseace.util.MovieRate;
  */
 
 public class ReviewMoreDTO implements Parcelable {
+    private int movieId;
     private float starRate;
     private String title;
     private MovieRate movieRate;
@@ -28,7 +29,8 @@ public class ReviewMoreDTO implements Parcelable {
         }
     };
 
-    public ReviewMoreDTO(String title, MovieRate movieRate, float starRate, int participants) {
+    public ReviewMoreDTO(int movieId, String title, MovieRate movieRate, float starRate, int participants) {
+        this.movieId = movieId;
         this.starRate = starRate;
         this.title = title;
         this.movieRate = movieRate;
@@ -36,6 +38,7 @@ public class ReviewMoreDTO implements Parcelable {
     }
 
     protected ReviewMoreDTO(Parcel in) {
+        movieId = in.readInt();
         starRate = in.readFloat();
         title = in.readString();
         movieRate = (MovieRate) in.readValue(MovieRate.class.getClassLoader());
@@ -49,6 +52,7 @@ public class ReviewMoreDTO implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(movieId);
         dest.writeFloat(starRate);
         dest.writeString(title);
         dest.writeValue(movieRate);
@@ -58,11 +62,16 @@ public class ReviewMoreDTO implements Parcelable {
     @Override
     public String toString() {
         return "ReviewMoreDTO{" +
+                "movieId" + movieId + '\'' +
                 "starRate='" + starRate + '\'' +
                 ", title=" + title +
                 ", movieRate=" + movieRate +
                 ", participants=" + participants +
                 '}';
+    }
+
+    public int getMovieId() {
+        return movieId;
     }
 
     public String getTitle() {

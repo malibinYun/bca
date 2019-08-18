@@ -14,15 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".movie.MovieHomeActivity">
+        <activity android:name=".ui.movie.MovieHomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".review.more.ReviewMoreActivity" />
-        <activity android:name=".review.write.ReviewWriteActivity" />
+        <activity android:name=".ui.review.more.ReviewMoreActivity" />
+        <activity android:name=".ui.review.write.ReviewWriteActivity" />
     </application>
 
 </manifest>

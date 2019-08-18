@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie.detail;
+package com.malibin.boostcourseace.ui.movie.detail;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,22 +23,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.dto.ReviewListDTO;
-import com.malibin.boostcourseace.dto.ReviewMoreDTO;
-import com.malibin.boostcourseace.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.movie.Movie;
-import com.malibin.boostcourseace.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
+import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
+import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
+import com.malibin.boostcourseace.ui.movie.Movie;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.network.MovieRepository;
-import com.malibin.boostcourseace.review.MovieReview;
-import com.malibin.boostcourseace.review.adapter.ReviewListAdapter;
-import com.malibin.boostcourseace.review.more.ReviewMoreActivity;
-import com.malibin.boostcourseace.review.write.ReviewWriteActivity;
+import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
+import com.malibin.boostcourseace.ui.review.more.ReviewMoreActivity;
+import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;
 import com.malibin.boostcourseace.util.LikeState;
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -411,7 +408,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private ReviewWriteDTO getReviewWriteDTO() {
         String movieTitle = movie.getTitle();
         MovieRate rate = movie.getMovieRate();
-        return new ReviewWriteDTO(movieTitle, rate);
+        return new ReviewWriteDTO(movieId, movieTitle, rate);
     }
 
     private ReviewMoreDTO getReviewMoreDTO() {
@@ -419,7 +416,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         MovieRate rate = movie.getMovieRate();
         float starRate = movie.getStarRate();
         int participants = reviewListDTO.getTotalCount();
-        return new ReviewMoreDTO(movieTitle, rate, starRate, participants);
+        return new ReviewMoreDTO(movieId, movieTitle, rate, starRate, participants);
     }
 
     private void appendReceivedReview(MovieReview review) {

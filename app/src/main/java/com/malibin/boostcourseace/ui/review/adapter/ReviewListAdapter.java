@@ -1,24 +1,29 @@
-package com.malibin.boostcourseace.review.adapter;
+package com.malibin.boostcourseace.ui.review.adapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.malibin.boostcourseace.dto.ReviewListDTO;
-import com.malibin.boostcourseace.review.MovieReview;
-import com.malibin.boostcourseace.review.MovieReviewView;
+import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
+import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.review.MovieReviewView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<MovieReview> items;
+    private List<MovieReview> items = new ArrayList<>();
 
-    public ReviewListAdapter(Context context, ReviewListDTO dto) {
+    public ReviewListAdapter(Context context) {
         this.context = context;
-        this.items = dto.getReviews();
+    }
+
+    public ReviewListAdapter(Context context, ReviewListDTO reviewListDTO) {
+        this.context = context;
+        this.items = reviewListDTO.getReviews();
     }
 
     @Override
@@ -49,6 +54,11 @@ public class ReviewListAdapter extends BaseAdapter {
 
     public void addReview(MovieReview review) {
         items.add(review);
+        notifyDataSetChanged();
+    }
+
+    public void addReviews(List<MovieReview> reviews) {
+        items.addAll(reviews);
         notifyDataSetChanged();
     }
 }

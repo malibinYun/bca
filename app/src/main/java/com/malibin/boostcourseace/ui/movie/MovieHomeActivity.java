@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie;
+package com.malibin.boostcourseace.ui.movie;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.movie.select.MovieSelectFragment;
+import com.malibin.boostcourseace.ui.movie.select.MovieSelectFragment;
 
 public class MovieHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MovieHomeActivityCall {
 

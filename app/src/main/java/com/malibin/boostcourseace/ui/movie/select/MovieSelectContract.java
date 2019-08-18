@@ -1,6 +1,6 @@
-package com.malibin.boostcourseace.movie.select;
+package com.malibin.boostcourseace.ui.movie.select;
 
-import com.malibin.boostcourseace.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 import com.malibin.boostcourseace.util.BasePresenter;
 import com.malibin.boostcourseace.util.BaseView;
 

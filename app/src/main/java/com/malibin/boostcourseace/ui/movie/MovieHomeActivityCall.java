@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie;
+package com.malibin.boostcourseace.ui.movie;
 
 import android.support.v4.app.Fragment;
 

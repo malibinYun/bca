@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.movie.select;
+package com.malibin.boostcourseace.ui.movie.select;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,17 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.movie.MovieHomeActivity;
-import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.movie.MovieShortInfo;
-import com.malibin.boostcourseace.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
 import com.malibin.boostcourseace.network.MovieRepository;
 
 import java.util.List;

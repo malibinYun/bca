@@ -1,11 +1,11 @@
-package com.malibin.boostcourseace.movie.select.adpater;
+package com.malibin.boostcourseace.ui.movie.select.adpater;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.malibin.boostcourseace.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 
 import java.util.ArrayList;
 import java.util.List;

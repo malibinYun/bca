@@ -1,11 +1,11 @@
-package com.malibin.boostcourseace.movie.detail;
+package com.malibin.boostcourseace.ui.movie.detail;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.VolleyError;
-import com.malibin.boostcourseace.dto.ReviewListDTO;
-import com.malibin.boostcourseace.movie.Movie;
+import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
+import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.network.CallBack;
 import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;

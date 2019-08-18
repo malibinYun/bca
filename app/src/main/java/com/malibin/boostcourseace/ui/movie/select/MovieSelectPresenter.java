@@ -1,9 +1,9 @@
-package com.malibin.boostcourseace.movie.select;
+package com.malibin.boostcourseace.ui.movie.select;
 
 import android.support.annotation.NonNull;
 
 import com.android.volley.VolleyError;
-import com.malibin.boostcourseace.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.network.CallBack;
 
