@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.network.CallBack;
 import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
+import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 
 /**
@@ -48,5 +49,21 @@ public class ReviewMorePresenter implements ReviewMoreContract.Presenter {
             }
         });
 
+    }
+
+    @Override
+    public void sendReviewRecommendRequest(int reviewId) {
+        ReviewRecommendRequestDTO dto = new ReviewRecommendRequestDTO(reviewId);
+        repository.sendRecommendRequest(dto, new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                view.showRecommendCompleteToast(reviewId);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
+            }
+        });
     }
 }

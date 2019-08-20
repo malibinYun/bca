@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.VolleyError;
+import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.network.CallBack;
@@ -56,6 +57,22 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
             @Override
             public void onResponse(ReviewListDTO response) {
                 view.initRecentReviews(response);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendReviewRecommendRequest(int reviewId) {
+        ReviewRecommendRequestDTO dto = new ReviewRecommendRequestDTO(reviewId);
+        repository.sendRecommendRequest(dto, new CallBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                view.showRecommendCompleteToast(reviewId);
             }
 
             @Override

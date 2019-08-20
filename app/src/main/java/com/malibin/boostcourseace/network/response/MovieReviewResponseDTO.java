@@ -6,6 +6,7 @@ import com.malibin.boostcourseace.ui.review.MovieReview;
  * Created By Yun Hyeok
  * on 8월 18, 2019
  */
+
 public class MovieReviewResponseDTO {
     private int id;
     private String writer;

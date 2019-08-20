@@ -19,6 +19,8 @@ public interface MovieDetailContract {
 
         void initRecentReviews(ReviewListDTO dto);
 
+        void showRecommendCompleteToast(int reviewId);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -26,6 +28,8 @@ public interface MovieDetailContract {
         void sendMovieDetailRequest(int movieId);
 
         void sendRecentReviewRequest(int movieId);
+
+        void sendReviewRecommendRequest(int reviewId);
 
         void sendLikeRequest(int movieId);
 

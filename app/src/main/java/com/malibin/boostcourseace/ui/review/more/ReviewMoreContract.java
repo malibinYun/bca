@@ -18,11 +18,14 @@ public interface ReviewMoreContract {
 
         void addReviews(List<MovieReview> reviews);
 
+        void showRecommendCompleteToast(int reviewId);
     }
 
     interface Presenter extends BasePresenter {
 
         void sendReviewListRequest(int movieId, int startIdx, int length);
+
+        void sendReviewRecommendRequest(int reviewId);
 
     }
 

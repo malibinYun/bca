@@ -10,6 +10,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
+import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
@@ -170,6 +171,25 @@ public class MovieRepository {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 baseUrl + "/movie/createComment" + dto.toParams(),
+                response -> {
+                    String result = getStringResult(response);
+                    callBack.onResponse(result);
+                },
+                callBack::onFailure
+        ) {
+
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+
+    public void sendRecommendRequest(
+            ReviewRecommendRequestDTO dto,
+            CallBack<String> callBack
+    ) {
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                baseUrl + "/movie/increaseRecommend" + dto.toParams(),
                 response -> {
                     String result = getStringResult(response);
                     callBack.onResponse(result);

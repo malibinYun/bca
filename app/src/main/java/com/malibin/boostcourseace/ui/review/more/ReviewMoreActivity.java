@@ -15,12 +15,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.review.MovieReviewView;
 import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;
 import com.malibin.boostcourseace.util.MovieRate;
@@ -40,6 +42,12 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
     private ReviewMoreDTO reviewMoreDTO;
     private int reviewStartIdx = 0;
 
+    private View.OnClickListener recommendBtnClickListener = v -> {
+        v.setEnabled(false);
+        View parent = (View) v.getParentForAccessibility();
+        int reviewId = ((MovieReviewView) parent).getReviewId();
+        presenter.sendReviewRecommendRequest(reviewId);
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,12 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
     public void addReviews(List<MovieReview> reviews) {
         adapter.addReviews(reviews);
         reviewStartIdx += REQUEST_LENGTH;
+    }
+
+    @Override
+    public void showRecommendCompleteToast(int reviewId) {
+        Toast.makeText(this, "리뷰를 추천하였습니다 !", Toast.LENGTH_SHORT).show();
+        adapter.disableBtnById(reviewId);
     }
 
     private void getIntentData() {
@@ -172,6 +186,7 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
     private void initReviewList() {
         ListView reviewList = findViewById(R.id.rv_review_more_review_list);
         adapter = new ReviewListAdapter(this);
+        adapter.setRecommendBtnClickListener(recommendBtnClickListener);
         reviewList.setAdapter(adapter);
     }
 

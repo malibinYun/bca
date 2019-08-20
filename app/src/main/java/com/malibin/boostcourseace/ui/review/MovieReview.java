@@ -100,4 +100,8 @@ public class MovieReview implements Parcelable {
     public int getRecommendCount() {
         return recommendCount;
     }
+
+    public void setRecommendCount(int recommendCount) {
+        this.recommendCount = recommendCount;
+    }
 }

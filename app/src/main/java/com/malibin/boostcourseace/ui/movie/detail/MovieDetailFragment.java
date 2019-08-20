@@ -23,13 +23,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
-import com.malibin.boostcourseace.network.MovieRepository;
 import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.review.MovieReviewView;
 import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.ui.review.more.ReviewMoreActivity;
 import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;
@@ -64,6 +65,15 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private TextView tvDislikeCount;
 
     private ReviewListDTO reviewListDTO;
+
+    private ReviewListAdapter adapter;
+
+    private View.OnClickListener recommendBtnClickListener = v -> {
+        v.setEnabled(false);
+        View parent = (View) v.getParentForAccessibility();
+        int reviewId = ((MovieReviewView) parent).getReviewId();
+        presenter.sendReviewRecommendRequest(reviewId);
+    };
 
     public static MovieDetailFragment getInstance(int movieId) {
         Bundle bundle = new Bundle();
@@ -135,6 +145,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public void initRecentReviews(ReviewListDTO dto) {
         reviewListDTO = dto;
         initReviewZone();
+    }
+
+    @Override
+    public void showRecommendCompleteToast(int reviewId) {
+        Toast.makeText(getContext(), "리뷰를 추천하였습니다 !", Toast.LENGTH_SHORT).show();
+        adapter.disableBtnById(reviewId);
     }
 
     private void initPresenter() {
@@ -359,7 +375,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void initReviewList() {
         ListView reviewList = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        ReviewListAdapter adapter = new ReviewListAdapter(getActivity(), reviewListDTO);
+        adapter = new ReviewListAdapter(getActivity(), reviewListDTO);
+        adapter.setRecommendBtnClickListener(recommendBtnClickListener);
         reviewList.setAdapter(adapter);
         setListViewHeightBasedOnChildren(reviewList);
     }
@@ -422,7 +439,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void appendReceivedReview(MovieReview review) {
         ListView listView = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        ReviewListAdapter adapter = (ReviewListAdapter) listView.getAdapter();
         adapter.addReview(review);
         setListViewHeightBasedOnChildren(listView);
     }
@@ -440,8 +456,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void refreshReviewList() {
-        ListView listView = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        ReviewListAdapter adapter = (ReviewListAdapter) listView.getAdapter();
         adapter.deleteAllReviews();
         presenter.sendRecentReviewRequest(movieId);
     }
