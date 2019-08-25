@@ -107,8 +107,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             presenter.requestRemoteRecentReview(movieId);
             return;
         }
-        presenter.requestLocalMovieDetail(movieId);
         presenter.requestLocalRecentReview(movieId);
+        presenter.requestLocalMovieDetail(movieId);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void showMissingReviews() {
-        Toast.makeText(getContext(), R.string.missing_reviews, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.missing_reviews, Toast.LENGTH_SHORT).show();
     }
 
     @Override

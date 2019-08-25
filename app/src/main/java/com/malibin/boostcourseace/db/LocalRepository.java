@@ -83,7 +83,7 @@ public class LocalRepository {
     }
 
     public List<MovieReview> getReviews(int movieId) {
-        String sql = "SELECT * FROM review WHERE movie_id = " + movieId + " ORDER BY review_id DESC";
+        String sql = "SELECT * FROM review WHERE movie_id = " + movieId + " ORDER BY review_id DESC LIMIT 20";
         Cursor cursor = database.rawQuery(sql, null);
         List<MovieReview> reviews = convertCursorFactory.toMovieReviews(cursor);
         cursor.close();

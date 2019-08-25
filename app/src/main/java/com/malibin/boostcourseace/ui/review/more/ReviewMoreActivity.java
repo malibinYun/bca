@@ -1,8 +1,11 @@
 package com.malibin.boostcourseace.ui.review.more;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.db.DatabaseOpenHelper;
+import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
@@ -58,7 +63,12 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         initPresenter();
         initView();
 
-        sendReviewListRequest();
+        int movieId = reviewMoreDTO.getMovieId();
+        if (isInternetConnected()) {
+            presenter.requestRemoteReviewList(movieId, reviewStartIdx, REQUEST_LENGTH);
+            return;
+        }
+        presenter.requestLocalReviewList(movieId);
     }
 
     @Override
@@ -94,13 +104,30 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         adapter.disableBtnById(reviewId);
     }
 
+    @Override
+    public void showServerFailToast() {
+        Toast.makeText(this, R.string.server_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMissingReviews() {
+        Toast.makeText(this, R.string.missing_reviews, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showDatabaseLoaded() {
+        Toast.makeText(this, R.string.database_loaded, Toast.LENGTH_SHORT).show();
+    }
+
     private void getIntentData() {
         reviewMoreDTO = getIntent().getParcelableExtra("dto");
     }
 
     private void initPresenter() {
-        RemoteRepository repository = RemoteRepository.getInstance(this);
-        presenter = new ReviewMorePresenter(this, repository);
+        DatabaseOpenHelper helper = DatabaseOpenHelper.getInstance(this, "cinemaHeaven.db", null, 1);
+        LocalRepository localRepository = LocalRepository.getInstance(helper);
+        RemoteRepository remoteRepository = RemoteRepository.getInstance(this);
+        presenter = new ReviewMorePresenter(this, remoteRepository, localRepository);
     }
 
     private void initView() {
@@ -110,11 +137,6 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
 
         initReviewWriteBtn();
         initReviewList();
-    }
-
-    private void sendReviewListRequest() {
-        int movieId = reviewMoreDTO.getMovieId();
-        presenter.sendReviewListRequest(movieId, reviewStartIdx, REQUEST_LENGTH);
     }
 
     private void initMovieShortInfo() {
@@ -204,4 +226,9 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
         Snackbar.make(view, R.string.snack_bar_review_canceled, Snackbar.LENGTH_SHORT).show();
     }
 
+    private boolean isInternetConnected() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null;
+    }
 }

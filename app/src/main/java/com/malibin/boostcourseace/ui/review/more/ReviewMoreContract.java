@@ -19,11 +19,19 @@ public interface ReviewMoreContract {
         void addReviews(List<MovieReview> reviews);
 
         void showRecommendCompleteToast(int reviewId);
+
+        void showServerFailToast();
+
+        void showMissingReviews();
+
+        void showDatabaseLoaded();
     }
 
     interface Presenter extends BasePresenter {
 
-        void sendReviewListRequest(int movieId, int startIdx, int length);
+        void requestRemoteReviewList(int movieId, int startIdx, int length);
+
+        void requestLocalReviewList(int movieId);
 
         void sendReviewRecommendRequest(int reviewId);
 
