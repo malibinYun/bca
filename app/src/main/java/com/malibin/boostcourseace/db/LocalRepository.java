@@ -1,5 +1,6 @@
 package com.malibin.boostcourseace.db;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
@@ -16,7 +17,10 @@ public class LocalRepository {
     private static LocalRepository INSTANCE = null;
     private static SQLiteDatabase database = null;
 
+    private ConvertCursorFactory convertCursorFactory;
+
     private LocalRepository() {
+        convertCursorFactory = new ConvertCursorFactory();
     }
 
     public static LocalRepository getInstance(DatabaseOpenHelper helper) {
@@ -32,5 +36,13 @@ public class LocalRepository {
         for (MovieShortInfo movie : movieShortInfoList) {
             database.execSQL(sql, movie.toSqlArgs());
         }
+    }
+
+    public List<MovieShortInfo> getMovieList() {
+        String sql = "SELECT * FROM movieList";
+        Cursor cursor = database.rawQuery(sql, null);
+        List<MovieShortInfo> result = convertCursorFactory.toMovieList(cursor);
+        cursor.close();
+        return result;
     }
 }

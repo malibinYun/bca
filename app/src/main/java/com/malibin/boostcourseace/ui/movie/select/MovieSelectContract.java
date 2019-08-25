@@ -23,7 +23,9 @@ public interface MovieSelectContract {
 
     interface Presenter extends BasePresenter {
 
-        void sendMovieListRequest();
+        void requestRemoteMovieList();
+
+        void requestLocalMovieList();
 
     }
 

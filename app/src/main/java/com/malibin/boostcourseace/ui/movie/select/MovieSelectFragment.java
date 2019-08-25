@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.db.DatabaseOpenHelper;
+import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
@@ -46,6 +48,8 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         initPresenter();
         initView();
         sendMovieListRequest();
+
+        presenter.requestLocalMovieList();
     }
 
     @Override
@@ -72,12 +76,14 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
     }
 
     private void initPresenter() {
-        RemoteRepository repository = RemoteRepository.getInstance(getActivity());
-        presenter = new MovieSelectPresenter(this, repository);
+        DatabaseOpenHelper helper = DatabaseOpenHelper.getInstance(getContext(), "cinemaHeaven.db", null, 1);
+        LocalRepository localRepository = LocalRepository.getInstance(helper);
+        RemoteRepository remoteRepository = RemoteRepository.getInstance(getActivity());
+        presenter = new MovieSelectPresenter(this, remoteRepository, localRepository);
     }
 
     private void sendMovieListRequest() {
-        presenter.sendMovieListRequest();
+        presenter.requestRemoteMovieList();
     }
 
     private void initView() {

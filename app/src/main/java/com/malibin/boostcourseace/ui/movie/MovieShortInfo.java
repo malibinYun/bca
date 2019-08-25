@@ -55,6 +55,20 @@ public class MovieShortInfo implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "MovieShortInfo{" +
+                "id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", titleEng='" + titleEng + '\'' +
+                ", reservationRank=" + reservationRank +
+                ", reservationRate=" + reservationRate +
+                ", movieRate=" + movieRate +
+                ", openingDay='" + openingDay + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

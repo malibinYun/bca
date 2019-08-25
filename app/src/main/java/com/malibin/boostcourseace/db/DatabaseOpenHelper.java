@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created By Yun Hyeok
@@ -30,6 +31,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     private DatabaseOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        Log.d("Malibin Debug", "DatabaseOpenHelper 생성자호출됨 ");
     }
 
     public static DatabaseOpenHelper getInstance(Context context, String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -41,9 +43,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("Malibin Debug", "DatabaseOpenHelper onCreate 호출됨 ");
         db.execSQL(CREATE_MOVIE_LIST);
         db.execSQL(CREATE_MOVIE);
         db.execSQL(CREATE_REVIEW);
+        Log.d("Malibin Debug", "DatabaseOpenHelper onCreate 끝 ");
     }
 
     @Override
