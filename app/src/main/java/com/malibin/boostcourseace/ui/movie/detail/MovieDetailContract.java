@@ -21,13 +21,25 @@ public interface MovieDetailContract {
 
         void showRecommendCompleteToast(int reviewId);
 
+        void showServerFailToast();
+
+        void showMissingMovie();
+
+        void showMissingReviews();
+
+        void showDatabaseLoaded();
+
     }
 
     interface Presenter extends BasePresenter {
 
-        void sendMovieDetailRequest(int movieId);
+        void requestRemoteMovieDetail(int movieId);
 
-        void sendRecentReviewRequest(int movieId);
+        void requestRemoteRecentReview(int movieId);
+
+        void requestLocalMovieDetail(int movieId);
+
+        void requestLocalRecentReview(int movieId);
 
         void sendReviewRecommendRequest(int reviewId);
 

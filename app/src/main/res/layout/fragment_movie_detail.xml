@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                             android:id="@+id/tv_movie_detail_frag_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="군도"
+                            android:text="-"
                             android:textColor="@android:color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -80,8 +80,7 @@
                         <ImageView
                             android:id="@+id/iv_movie_detail_frag_movie_rating"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_15" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <Space
@@ -97,7 +96,7 @@
                             android:id="@+id/tv_movie_detail_frag_opening_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2014.07.23"
+                            android:text="-"
                             android:textColor="@android:color/white" />
 
                         <TextView
@@ -117,7 +116,7 @@
                             android:id="@+id/tv_movie_detail_frag_genre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="액션"
+                            android:text="-"
                             android:textColor="@android:color/white" />
 
                         <TextView
@@ -131,7 +130,7 @@
                             android:id="@+id/tv_movie_detail_frag_show_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="137"
+                            android:text="-"
                             android:textColor="@android:color/white" />
 
                         <TextView

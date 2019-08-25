@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Created By Yun Hyeok
@@ -24,14 +23,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     ", director TEXT, actress TEXT, photo_links TEXT, video_links TEXT, out_links TEXT)";
 
     private static final String CREATE_REVIEW =
-            "CREATE TABLE IF NOT EXISTS review (review_id INTEGER PRIMARY KEY, movie_id INTEGER, profile TEXT, nickname TEXT, time TEXT, " +
+            "CREATE TABLE IF NOT EXISTS review (movie_id INTEGER, review_id INTEGER PRIMARY KEY, profile TEXT, nickname TEXT, time TEXT, " +
                     "star_rate FLOAT, content TEXT, recommend_count INTEGER)";
 
     private static DatabaseOpenHelper INSTANCE = null;
 
     private DatabaseOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        Log.d("Malibin Debug", "DatabaseOpenHelper 생성자호출됨 ");
     }
 
     public static DatabaseOpenHelper getInstance(Context context, String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -43,11 +41,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("Malibin Debug", "DatabaseOpenHelper onCreate 호출됨 ");
         db.execSQL(CREATE_MOVIE_LIST);
         db.execSQL(CREATE_MOVIE);
         db.execSQL(CREATE_REVIEW);
-        Log.d("Malibin Debug", "DatabaseOpenHelper onCreate 끝 ");
     }
 
     @Override

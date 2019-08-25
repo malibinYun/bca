@@ -13,6 +13,7 @@ import java.util.List;
  */
 
 public class MovieDetailResponseDTO {
+    private int id;
     private String title;               // 제목
     private String date;                // 개봉연월일
     private float user_rating;          // 사용자 평점
@@ -37,7 +38,8 @@ public class MovieDetailResponseDTO {
     private int like;                   // 좋아요 총 수
     private int dislike;                // 싫어요 총 수
 
-    public MovieDetailResponseDTO(String title, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image, String photos, String videos, String outlinks, String genre, int duration, int audience, String synopsis, String director, String actor, int like, int dislike) {
+    public MovieDetailResponseDTO(int id, String title, String date, float user_rating, float audience_rating, float reviewer_rating, float reservation_rate, int reservation_grade, int grade, String thumb, String image, String photos, String videos, String outlinks, String genre, int duration, int audience, String synopsis, String director, String actor, int like, int dislike) {
+        this.id = id;
         this.title = title;
         this.date = date;
         this.user_rating = user_rating;
@@ -67,8 +69,12 @@ public class MovieDetailResponseDTO {
         List<String> videoList = videos != null ? Arrays.asList(videos.split(",")) : emptyList;
         List<String> outlinkList = outlinks != null ? Arrays.asList(outlinks.split(",")) : emptyList;
         MovieRate movieRate = MovieRate.findByRate(grade);
-        return new Movie(image, title, movieRate, date, genre, duration, like, dislike, reservation_grade
+        return new Movie(id, image, title, movieRate, date, genre, duration, like, dislike, reservation_grade
                 , reservation_rate, audience_rating, audience, synopsis, director, actor, photoList, videoList, outlinkList);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

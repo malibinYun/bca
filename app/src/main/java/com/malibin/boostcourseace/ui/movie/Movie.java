@@ -1,5 +1,7 @@
 package com.malibin.boostcourseace.ui.movie;
 
+import android.text.TextUtils;
+
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  */
 
 public class Movie {
-
+    private int id;
     private String imageUrl;
     private String title;
     private MovieRate movieRate;
@@ -34,7 +36,8 @@ public class Movie {
     private List<String> videoLinks;
     private List<String> outLinks;
 
-    public Movie(String imageUrl, String title, MovieRate movieRate, String openingDay, String genre, int showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress, List<String> photoLinks, List<String> videoLinks, List<String> outLinks) {
+    public Movie(int id, String imageUrl, String title, MovieRate movieRate, String openingDay, String genre, int showTime, int likeCount, int dislikeCount, int reservationRank, float reservationRate, float starRate, float accumulatedAttendance, String plot, String director, String actress, List<String> photoLinks, List<String> videoLinks, List<String> outLinks) {
+        this.id = id;
         this.imageUrl = imageUrl;
         this.title = title;
         this.movieRate = movieRate;
@@ -53,6 +56,42 @@ public class Movie {
         this.photoLinks = photoLinks;
         this.videoLinks = videoLinks;
         this.outLinks = outLinks;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", movieRate=" + movieRate +
+                ", openingDay='" + openingDay + '\'' +
+                ", genre='" + genre + '\'' +
+                ", showTime=" + showTime +
+                ", likeCount=" + likeCount +
+                ", dislikeCount=" + dislikeCount +
+                ", reservationRank=" + reservationRank +
+                ", reservationRate=" + reservationRate +
+                ", starRate=" + starRate +
+                ", accumulatedAttendance=" + accumulatedAttendance +
+                ", plot='" + plot + '\'' +
+                ", director='" + director + '\'' +
+                ", actress='" + actress + '\'' +
+                ", photoLinks=" + photoLinks +
+                ", videoLinks=" + videoLinks +
+                ", outLinks=" + outLinks +
+                '}';
+    }
+
+    public Object[] toSqlArgs() {
+        return new Object[]{id, imageUrl, title, movieRate.getRate(), openingDay, genre, showTime,
+                likeCount, dislikeCount, reservationRank, reservationRate, starRate, accumulatedAttendance, plot, director, actress,
+                TextUtils.join("##", photoLinks), TextUtils.join("##", videoLinks), TextUtils.join("##", outLinks)
+        };
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getImageUrl() {

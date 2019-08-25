@@ -73,6 +73,10 @@ public class MovieReview implements Parcelable {
                 '}';
     }
 
+    public Object[] toSqlArgs() {
+        return new Object[]{reviewId, profile, nickname, time, starRate, content, recommendCount};
+    }
+
     public int getReviewId() {
         return reviewId;
     }

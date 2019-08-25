@@ -1,7 +1,10 @@
 package com.malibin.boostcourseace.ui.movie.detail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +26,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.db.DatabaseOpenHelper;
+import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
@@ -96,8 +101,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         initView();
         initPresenter();
         initMovieId();
-        sendMovieDetailRequest();
-        sendRecentReviewsRequest();
+
+        if (isInternetConnected()) {
+            presenter.requestRemoteMovieDetail(movieId);
+            presenter.requestRemoteRecentReview(movieId);
+            return;
+        }
+        presenter.requestLocalMovieDetail(movieId);
+        presenter.requestLocalRecentReview(movieId);
     }
 
     @Override
@@ -153,9 +164,31 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         adapter.disableBtnById(reviewId);
     }
 
+    @Override
+    public void showServerFailToast() {
+        Toast.makeText(getContext(), R.string.server_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMissingMovie() {
+        Toast.makeText(getContext(), R.string.missing_movie, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMissingReviews() {
+        Toast.makeText(getContext(), R.string.missing_reviews, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showDatabaseLoaded() {
+        Toast.makeText(getContext(), R.string.database_loaded, Toast.LENGTH_SHORT).show();
+    }
+
     private void initPresenter() {
-        RemoteRepository repository = RemoteRepository.getInstance(getActivity());
-        presenter = new MovieDetailPresenter(this, repository);
+        DatabaseOpenHelper helper = DatabaseOpenHelper.getInstance(getContext(), "cinemaHeaven.db", null, 1);
+        LocalRepository localRepository = LocalRepository.getInstance(helper);
+        RemoteRepository remoteRepository = RemoteRepository.getInstance(getActivity());
+        presenter = new MovieDetailPresenter(this, remoteRepository, localRepository);
     }
 
     private void initMovieId() {
@@ -163,14 +196,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             throw new NullPointerException();
         }
         movieId = getArguments().getInt("movieId");
-    }
-
-    private void sendMovieDetailRequest() {
-        presenter.sendMovieDetailRequest(movieId);
-    }
-
-    private void sendRecentReviewsRequest() {
-        presenter.sendRecentReviewRequest(movieId);
     }
 
     private void notifyDataLoaded(boolean active) {
@@ -457,7 +482,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void refreshReviewList() {
         adapter.deleteAllReviews();
-        presenter.sendRecentReviewRequest(movieId);
+        if (isInternetConnected()) {
+            presenter.requestRemoteRecentReview(movieId);
+            return;
+        }
+        presenter.requestLocalRecentReview(movieId);
     }
 
+    private boolean isInternetConnected() {
+        ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null;
+    }
 }
