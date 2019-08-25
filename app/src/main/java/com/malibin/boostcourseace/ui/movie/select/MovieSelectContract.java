@@ -19,6 +19,12 @@ public interface MovieSelectContract {
 
         void initMovieSelectPages(List<MovieShortInfo> response);
 
+        void showServerFailToast();
+
+        void showMissingMovieList();
+
+        void showDatabaseLoaded();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -26,6 +32,8 @@ public interface MovieSelectContract {
         void requestRemoteMovieList();
 
         void requestLocalMovieList();
+
+        void deleteLocalMovieList();
 
     }
 

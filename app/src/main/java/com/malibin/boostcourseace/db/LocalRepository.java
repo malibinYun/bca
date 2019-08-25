@@ -38,8 +38,13 @@ public class LocalRepository {
         }
     }
 
+    public void deleteMovieList() {
+        String sql = "DELETE FROM movieList";
+        database.execSQL(sql);
+    }
+
     public List<MovieShortInfo> getMovieList() {
-        String sql = "SELECT * FROM movieList";
+        String sql = "SELECT * FROM movieList ORDER BY id";
         Cursor cursor = database.rawQuery(sql, null);
         List<MovieShortInfo> result = convertCursorFactory.toMovieList(cursor);
         cursor.close();

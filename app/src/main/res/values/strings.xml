@@ -17,6 +17,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="content_needed">내용을 입력해 주세요.</string>
+    <string name="missing_movie_list">저장된 영화 목록이 존재하지 않습니다. 인터넷을 켜고 다시 실행해주세요.</string>
+    <string name="server_failed">서버와의 통신에 실패하였습니다. 인터넷 연결을 확인해주세요.</string>
+    <string name="database_loaded">인터넷이 연결되어있지않아 저장된 데이터를 불러왔습니다.</string>
 
     <!--> Movie Detail Act <-->
     <string name="reservation_rate">예매율</string>

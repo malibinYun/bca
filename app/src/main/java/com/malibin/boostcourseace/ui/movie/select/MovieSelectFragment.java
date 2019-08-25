@@ -1,5 +1,8 @@
 package com.malibin.boostcourseace.ui.movie.select;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,15 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.db.DatabaseOpenHelper;
 import com.malibin.boostcourseace.db.LocalRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 import com.malibin.boostcourseace.ui.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
-import com.malibin.boostcourseace.network.RemoteRepository;
 
 import java.util.List;
 
@@ -47,8 +51,12 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
 
         initPresenter();
         initView();
-        sendMovieListRequest();
 
+        if (isInternetConnected()) {
+            presenter.deleteLocalMovieList();
+            presenter.requestRemoteMovieList();
+            return;
+        }
         presenter.requestLocalMovieList();
     }
 
@@ -71,6 +79,21 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         initMovieSelectPagesView();
     }
 
+    @Override
+    public void showServerFailToast() {
+        Toast.makeText(getContext(), R.string.server_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMissingMovieList() {
+        Toast.makeText(getContext(), R.string.missing_movie_list, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showDatabaseLoaded() {
+        Toast.makeText(getContext(), R.string.database_loaded, Toast.LENGTH_SHORT).show();
+    }
+
     public void setMovieHomeActivityCall(MovieHomeActivityCall activityCall) {
         this.activityCall = activityCall;
     }
@@ -80,10 +103,6 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
         LocalRepository localRepository = LocalRepository.getInstance(helper);
         RemoteRepository remoteRepository = RemoteRepository.getInstance(getActivity());
         presenter = new MovieSelectPresenter(this, remoteRepository, localRepository);
-    }
-
-    private void sendMovieListRequest() {
-        presenter.requestRemoteMovieList();
     }
 
     private void initView() {
@@ -103,6 +122,12 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
 
     private void setActivityAppbarTitle() {
         ((MovieHomeActivity) getActivity()).setAppbarTitle("영화 목록");
+    }
+
+    private boolean isInternetConnected() {
+        ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null;
     }
 
 }

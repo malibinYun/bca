@@ -1,13 +1,12 @@
 package com.malibin.boostcourseace.ui.movie.select;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.db.LocalRepository;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
-import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.CallBack;
+import com.malibin.boostcourseace.network.RemoteRepository;
+import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,15 +48,12 @@ public class MovieSelectPresenter implements MovieSelectContract.Presenter {
                         view.initMovieSelectPages(response);
                         view.setLoadingIndicator(false);
 
-                        Log.d("Malibin Debug", "localRepository.saveMovieList(response); 호출 직전");
                         localRepository.saveMovieList(response);
-                        Log.d("Malibin Debug", "localRepository.saveMovieList(response); 호출 직후");
-                        requestLocalMovieList();
-                        Log.d("Malibin Debug", "서버통신 끝");
                     }
 
                     @Override
                     public void onFailure(VolleyError error) {
+                        view.showServerFailToast();
                         view.setLoadingIndicator(false);
                     }
                 }
@@ -66,15 +62,22 @@ public class MovieSelectPresenter implements MovieSelectContract.Presenter {
 
     @Override
     public void requestLocalMovieList() {
-        Log.d("Malibin Debug", "requestLocalMovieList 호출됨");
+        view.setLoadingIndicator(true);
 
         List<MovieShortInfo> result = localRepository.getMovieList();
-        for (MovieShortInfo item : result) {
-            Log.d("Malibin Debug", "gma : " + item.toString());
+        if (result.isEmpty()) {
+            view.showMissingMovieList();
+            view.setLoadingIndicator(false);
+            return;
         }
-        Log.d("Malibin Debug", "nothing?");
+        view.initMovieSelectPages(result);
+        view.showDatabaseLoaded();
+        view.setLoadingIndicator(false);
+    }
 
-        Log.d("Malibin Debug", "requestLocalMovieList 끝");
+    @Override
+    public void deleteLocalMovieList() {
+        localRepository.deleteMovieList();
     }
 
     private Map<String, String> movieListParam() {
