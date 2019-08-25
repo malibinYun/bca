@@ -43,13 +43,23 @@ public class ReviewWriteActivity extends AppCompatActivity implements ReviewWrit
         ProgressBar progressBar = findViewById(R.id.progressBar_review_write_act);
         int visibility = active ? View.VISIBLE : View.INVISIBLE;
         progressBar.setVisibility(visibility);
-        setSaveBtnEnabled(!active);
     }
 
     @Override
     public void notifyReviewSaved() {
         sendReviewToPreviousActivity();
         finish();
+    }
+
+    @Override
+    public void showServerFailToast() {
+        Toast.makeText(this, R.string.server_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setSaveBtnEnable(boolean state) {
+        ConstraintLayout saveBtn = findViewById(R.id.btn_review_write_act_save);
+        saveBtn.setEnabled(state);
     }
 
     private void getIntentData() {
@@ -99,13 +109,7 @@ public class ReviewWriteActivity extends AppCompatActivity implements ReviewWrit
             showContentNeededToast();
             return;
         }
-        setSaveBtnEnabled(false);
         sendReviewSaveRequest();
-    }
-
-    private void setSaveBtnEnabled(boolean state) {
-        ConstraintLayout saveBtn = findViewById(R.id.btn_review_write_act_save);
-        saveBtn.setEnabled(state);
     }
 
     private void showContentNeededToast() {

@@ -16,6 +16,10 @@ public interface ReviewWriteContract {
 
         void notifyReviewSaved();
 
+        void showServerFailToast();
+
+        void setSaveBtnEnable(boolean state);
+
     }
 
     interface Presenter extends BasePresenter {
