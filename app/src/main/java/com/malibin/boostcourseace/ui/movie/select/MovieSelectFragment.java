@@ -16,7 +16,7 @@ import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
 import com.malibin.boostcourseace.ui.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class MovieSelectFragment extends Fragment implements MovieSelectContract
     }
 
     private void initPresenter() {
-        MovieRepository repository = MovieRepository.getInstance(getActivity());
+        RemoteRepository repository = RemoteRepository.getInstance(getActivity());
         presenter = new MovieSelectPresenter(this, repository);
     }
 

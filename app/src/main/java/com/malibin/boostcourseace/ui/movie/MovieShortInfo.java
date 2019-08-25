@@ -71,6 +71,11 @@ public class MovieShortInfo implements Parcelable {
         dest.writeString(openingDay);
     }
 
+    public Object[] toSqlArgs() {
+        return new Object[]{id, imageUrl, title, titleEng, reservationRank, reservationRate, movieRate, openingDay};
+    }
+
+
     public int getId() {
         return id;
     }

@@ -31,23 +31,23 @@ import java.util.stream.Collectors;
  * on 8월 16, 2019
  */
 
-public class MovieRepository {
+public class RemoteRepository {
 
-    private static MovieRepository INSTANCE;
+    private static RemoteRepository INSTANCE;
     private static RequestQueue requestQueue;
     private static Gson gson;
 
     private final String baseUrl = "http://boostcourse-appapi.connect.or.kr:10000";
 
-    public static MovieRepository getInstance(Context context) {
+    public static RemoteRepository getInstance(Context context) {
         if (INSTANCE != null)
             return INSTANCE;
         requestQueue = Volley.newRequestQueue(context);
         gson = new Gson();
-        return INSTANCE = new MovieRepository();
+        return INSTANCE = new RemoteRepository();
     }
 
-    private MovieRepository() {
+    private RemoteRepository() {
 
     }
 

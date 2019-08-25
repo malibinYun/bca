@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.network.CallBack;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 
 /**
@@ -15,14 +15,14 @@ import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 public class ReviewWritePresenter implements ReviewWriteContract.Presenter {
 
     private ReviewWriteContract.View view;
-    private MovieRepository repository;
+    private RemoteRepository remoteRepository;
 
     public ReviewWritePresenter(
             @NonNull ReviewWriteContract.View view,
-            @NonNull MovieRepository repository
+            @NonNull RemoteRepository remoteRepository
     ) {
         this.view = view;
-        this.repository = repository;
+        this.remoteRepository = remoteRepository;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ReviewWritePresenter implements ReviewWriteContract.Presenter {
 
     @Override
     public void saveReview(MovieReviewSaveRequestDTO dto) {
-        repository.sendReviewSaveRequest(dto, new CallBack<String>() {
+        remoteRepository.sendReviewSaveRequest(dto, new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 view.notifyReviewSaved();

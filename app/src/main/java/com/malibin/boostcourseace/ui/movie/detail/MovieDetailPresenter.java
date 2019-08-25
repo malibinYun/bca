@@ -8,7 +8,7 @@ import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.movie.Movie;
 import com.malibin.boostcourseace.network.CallBack;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 
 /**
@@ -18,14 +18,14 @@ import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     private MovieDetailContract.View view;
-    private MovieRepository repository;
+    private RemoteRepository remoteRepository;
 
     public MovieDetailPresenter(
             @NonNull MovieDetailContract.View view,
-            @NonNull MovieRepository repository
+            @NonNull RemoteRepository remoteRepository
     ) {
         this.view = view;
-        this.repository = repository;
+        this.remoteRepository = remoteRepository;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     @Override
     public void sendMovieDetailRequest(int movieId) {
         view.setLoadingIndicator(true);
-        repository.sendMovieDetailRequest(movieId, new CallBack<Movie>() {
+        remoteRepository.sendMovieDetailRequest(movieId, new CallBack<Movie>() {
             @Override
             public void onResponse(Movie response) {
                 view.initMovieDetailInfo(response);
@@ -53,7 +53,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     @Override
     public void sendRecentReviewRequest(int movieId) {
         MovieReviewListRequestDTO dto = new MovieReviewListRequestDTO(movieId, "3", null, null);
-        repository.sendMovieReviewListRequest(dto, new CallBack<ReviewListDTO>() {
+        remoteRepository.sendMovieReviewListRequest(dto, new CallBack<ReviewListDTO>() {
             @Override
             public void onResponse(ReviewListDTO response) {
                 view.initRecentReviews(response);
@@ -69,7 +69,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     @Override
     public void sendReviewRecommendRequest(int reviewId) {
         ReviewRecommendRequestDTO dto = new ReviewRecommendRequestDTO(reviewId);
-        repository.sendRecommendRequest(dto, new CallBack<String>() {
+        remoteRepository.sendRecommendRequest(dto, new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 view.showRecommendCompleteToast(reviewId);
@@ -84,7 +84,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     @Override
     public void sendLikeRequest(int movieId) {
-        repository.sendLikeDisLikeRequest(movieId, "likeyn=Y", new CallBack<String>() {
+        remoteRepository.sendLikeDisLikeRequest(movieId, "likeyn=Y", new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Malibin Debug", "response : " + response);
@@ -99,7 +99,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     @Override
     public void sendLikeCancelRequest(int movieId) {
-        repository.sendLikeDisLikeRequest(movieId, "likeyn=N", new CallBack<String>() {
+        remoteRepository.sendLikeDisLikeRequest(movieId, "likeyn=N", new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Malibin Debug", "response : " + response);
@@ -114,7 +114,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     @Override
     public void sendDisLikeRequest(int movieId) {
-        repository.sendLikeDisLikeRequest(movieId, "dislikeyn=Y", new CallBack<String>() {
+        remoteRepository.sendLikeDisLikeRequest(movieId, "dislikeyn=Y", new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Malibin Debug", "response : " + response);
@@ -129,7 +129,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     @Override
     public void sendDisLikeCancelRequest(int movieId) {
-        repository.sendLikeDisLikeRequest(movieId, "dislikeyn=N", new CallBack<String>() {
+        remoteRepository.sendLikeDisLikeRequest(movieId, "dislikeyn=N", new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("Malibin Debug", "response : " + response);

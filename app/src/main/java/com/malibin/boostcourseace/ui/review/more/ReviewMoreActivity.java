@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
 import com.malibin.boostcourseace.ui.review.MovieReview;
@@ -99,7 +99,7 @@ public class ReviewMoreActivity extends AppCompatActivity implements ReviewMoreC
     }
 
     private void initPresenter() {
-        MovieRepository repository = MovieRepository.getInstance(this);
+        RemoteRepository repository = RemoteRepository.getInstance(this);
         presenter = new ReviewMorePresenter(this, repository);
     }
 

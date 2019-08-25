@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.CallBack;
 
 import java.util.HashMap;
@@ -19,14 +19,14 @@ import java.util.Map;
 public class MovieSelectPresenter implements MovieSelectContract.Presenter {
 
     private MovieSelectContract.View view;
-    private MovieRepository movieRepository;
+    private RemoteRepository remoteRepository;
 
     public MovieSelectPresenter(
             @NonNull MovieSelectContract.View view,
-            @NonNull MovieRepository movieRepository
+            @NonNull RemoteRepository remoteRepository
     ) {
         this.view = view;
-        this.movieRepository = movieRepository;
+        this.remoteRepository = remoteRepository;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MovieSelectPresenter implements MovieSelectContract.Presenter {
     @Override
     public void sendMovieListRequest() {
         view.setLoadingIndicator(true);
-        movieRepository.sendMovieListRequest(movieListParam(),
+        remoteRepository.sendMovieListRequest(movieListParam(),
                 new CallBack<List<MovieShortInfo>>() {
                     @Override
                     public void onResponse(List<MovieShortInfo> response) {

@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.network.CallBack;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
@@ -17,14 +17,14 @@ import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 public class ReviewMorePresenter implements ReviewMoreContract.Presenter {
 
     private ReviewMoreContract.View view;
-    private MovieRepository repository;
+    private RemoteRepository remoteRepository;
 
     public ReviewMorePresenter(
             @NonNull ReviewMoreContract.View view,
-            @NonNull MovieRepository repository
+            @NonNull RemoteRepository remoteRepository
     ) {
         this.view = view;
-        this.repository = repository;
+        this.remoteRepository = remoteRepository;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ReviewMorePresenter implements ReviewMoreContract.Presenter {
     public void sendReviewListRequest(int movieId, int startIdx, int length) {
         view.setLoadingIndicator(true);
         MovieReviewListRequestDTO dto = new MovieReviewListRequestDTO(movieId, null, startIdx, length);
-        repository.sendMovieReviewListRequest(dto, new CallBack<ReviewListDTO>() {
+        remoteRepository.sendMovieReviewListRequest(dto, new CallBack<ReviewListDTO>() {
             @Override
             public void onResponse(ReviewListDTO response) {
                 view.addReviews(response.getReviews());
@@ -54,7 +54,7 @@ public class ReviewMorePresenter implements ReviewMoreContract.Presenter {
     @Override
     public void sendReviewRecommendRequest(int reviewId) {
         ReviewRecommendRequestDTO dto = new ReviewRecommendRequestDTO(reviewId);
-        repository.sendRecommendRequest(dto, new CallBack<String>() {
+        remoteRepository.sendRecommendRequest(dto, new CallBack<String>() {
             @Override
             public void onResponse(String response) {
                 view.showRecommendCompleteToast(reviewId);

@@ -7,6 +7,7 @@ import com.malibin.boostcourseace.util.MovieRate;
  * Created By Yun Hyeok
  * on 8월 16, 2019
  */
+
 public class MovieShortInfoResponseDTO {
     private int id;                 // 영화 아이디
     private String title;           // 영화 제목

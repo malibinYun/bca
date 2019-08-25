@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.network.MovieRepository;
+import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
@@ -154,7 +154,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void initPresenter() {
-        MovieRepository repository = MovieRepository.getInstance(getActivity());
+        RemoteRepository repository = RemoteRepository.getInstance(getActivity());
         presenter = new MovieDetailPresenter(this, repository);
     }
 
