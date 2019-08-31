@@ -10,6 +10,7 @@ import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.ui.entity.MovieGallery;
 import com.malibin.boostcourseace.ui.entity.MoviePictureGallery;
 import com.malibin.boostcourseace.ui.entity.MovieVideoGallery;
+import com.malibin.boostcourseace.util.GalleryClickListener;
 
 /**
  * Created By Yun Hyeok
@@ -21,11 +22,17 @@ public class MovieDetailGalleryViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivImage;
     private ImageView ivIsVideo;
 
+    private GalleryClickListener galleryClickListener;
+
     public MovieDetailGalleryViewHolder(@NonNull View itemView) {
         super(itemView);
 
         ivImage = itemView.findViewById(R.id.iv_rv_movie_gallery_image);
         ivIsVideo = itemView.findViewById(R.id.iv_rv_movie_gallery_video);
+    }
+
+    public void setGalleryClickListener(GalleryClickListener l) {
+        galleryClickListener = l;
     }
 
     public void bindContent(MovieGallery gallery) {
@@ -41,16 +48,16 @@ public class MovieDetailGalleryViewHolder extends RecyclerView.ViewHolder {
         Glide.with(ivImage)
                 .load(imageUrl)
                 .into(ivImage);
-        ivImage.setOnClickListener(view -> {
-        });
+        ivImage.setOnClickListener(view -> galleryClickListener.onImageClick(imageUrl));
     }
 
     private void setVideoGallery(MovieVideoGallery gallery) {
+        String imageUrl = gallery.getImageUrl();
+        String videoUrl = gallery.getVideoUrl();
         ivIsVideo.setVisibility(View.VISIBLE);
         Glide.with(ivImage)
-                .load(gallery.getImageUrl())
+                .load(imageUrl)
                 .into(ivImage);
-        ivImage.setOnClickListener(view -> {
-        });
+        ivImage.setOnClickListener(view -> galleryClickListener.onVideoClick(videoUrl));
     }
 }

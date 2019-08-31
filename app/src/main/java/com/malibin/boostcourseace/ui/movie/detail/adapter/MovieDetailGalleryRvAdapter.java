@@ -2,6 +2,7 @@ package com.malibin.boostcourseace.ui.movie.detail.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.ui.entity.MovieGallery;
 import com.malibin.boostcourseace.ui.movie.detail.MovieDetailGalleryViewHolder;
+import com.malibin.boostcourseace.util.GalleryClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,11 @@ public class MovieDetailGalleryRvAdapter extends RecyclerView.Adapter<MovieDetai
     private Context context;
     private List<MovieGallery> galleryList = new ArrayList<>();
 
-    public MovieDetailGalleryRvAdapter(Context context) {
+    private GalleryClickListener galleryClickListener;
+
+    public MovieDetailGalleryRvAdapter(Context context, @Nullable GalleryClickListener galleryClickListener) {
         this.context = context;
+        this.galleryClickListener = galleryClickListener;
     }
 
     @NonNull
@@ -38,6 +43,7 @@ public class MovieDetailGalleryRvAdapter extends RecyclerView.Adapter<MovieDetai
     @Override
     public void onBindViewHolder(@NonNull MovieDetailGalleryViewHolder holder, int position) {
         MovieGallery gallery = galleryList.get(position);
+        holder.setGalleryClickListener(galleryClickListener);
         holder.bindContent(gallery);
     }
 

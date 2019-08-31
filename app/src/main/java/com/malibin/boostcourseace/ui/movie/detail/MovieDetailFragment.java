@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,6 +43,8 @@ import com.malibin.boostcourseace.ui.review.MovieReviewView;
 import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.ui.review.more.ReviewMoreActivity;
 import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;
+import com.malibin.boostcourseace.ui.web.ImageZoomActivity;
+import com.malibin.boostcourseace.util.GalleryClickListener;
 import com.malibin.boostcourseace.util.LikeState;
 import com.malibin.boostcourseace.util.MovieRate;
 
@@ -83,6 +86,22 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         int reviewId = ((MovieReviewView) parent).getReviewId();
         presenter.sendReviewRecommendRequest(reviewId);
     };
+
+    private GalleryClickListener galleryClickListener = new GalleryClickListener() {
+        @Override
+        public void onImageClick(String url) {
+            Intent intent = new Intent(getActivity(), ImageZoomActivity.class);
+            intent.putExtra("url", url);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onVideoClick(String url) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
+    };
+
 
     public static MovieDetailFragment getInstance(int movieId) {
         Bundle bundle = new Bundle();
@@ -357,7 +376,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             galleryZone.setVisibility(View.GONE);
             return;
         }
-        galleryRvAdapter = new MovieDetailGalleryRvAdapter(getContext());
+        galleryRvAdapter = new MovieDetailGalleryRvAdapter(getContext(), galleryClickListener);
         galleryRvAdapter.addGalleries(movie.getGalleryList());
         RecyclerView rvGallery = inflatedView.findViewById(R.id.rv_movie_detail_frag_gallery);
         rvGallery.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
