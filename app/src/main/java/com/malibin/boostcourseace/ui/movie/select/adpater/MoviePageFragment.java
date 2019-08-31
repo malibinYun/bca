@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malibin.boostcourseace.R;
-import com.malibin.boostcourseace.ui.movie.Movie;
-import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 import com.malibin.boostcourseace.ui.movie.detail.MovieDetailFragment;
 
 /**

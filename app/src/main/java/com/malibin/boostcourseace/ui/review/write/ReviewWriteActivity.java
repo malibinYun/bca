@@ -19,7 +19,7 @@ import com.malibin.boostcourseace.R;
 import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 import com.malibin.boostcourseace.util.MovieRate;
 
 public class ReviewWriteActivity extends AppCompatActivity implements ReviewWriteContract.View {

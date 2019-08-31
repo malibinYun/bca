@@ -1,6 +1,6 @@
 package com.malibin.boostcourseace.network.response;
 
-import com.malibin.boostcourseace.ui.movie.Movie;
+import com.malibin.boostcourseace.ui.entity.Movie;
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.util.Arrays;

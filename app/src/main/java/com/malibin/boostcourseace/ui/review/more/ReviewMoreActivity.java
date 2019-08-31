@@ -26,7 +26,7 @@ import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 import com.malibin.boostcourseace.ui.review.MovieReviewView;
 import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.ui.review.write.ReviewWriteActivity;

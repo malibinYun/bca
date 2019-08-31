@@ -12,14 +12,14 @@ import com.google.gson.reflect.TypeToken;
 import com.malibin.boostcourseace.network.request.MovieReviewSaveRequestDTO;
 import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
-import com.malibin.boostcourseace.ui.movie.Movie;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.Movie;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 import com.malibin.boostcourseace.network.response.MovieDetailResponseDTO;
 import com.malibin.boostcourseace.network.response.MovieReviewResponseDTO;
 import com.malibin.boostcourseace.network.response.MovieShortInfoResponseDTO;
 import com.malibin.boostcourseace.network.response.ResponseTemplate;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 import java.lang.reflect.Type;
 import java.util.List;

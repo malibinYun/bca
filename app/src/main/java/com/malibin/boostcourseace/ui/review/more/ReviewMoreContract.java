@@ -1,6 +1,6 @@
 package com.malibin.boostcourseace.ui.review.more;
 
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 import com.malibin.boostcourseace.util.BasePresenter;
 import com.malibin.boostcourseace.util.BaseView;
 

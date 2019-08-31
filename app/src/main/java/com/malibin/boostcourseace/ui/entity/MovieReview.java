@@ -1,4 +1,4 @@
-package com.malibin.boostcourseace.ui.review;
+package com.malibin.boostcourseace.ui.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

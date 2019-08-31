@@ -4,9 +4,9 @@ import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.malibin.boostcourseace.ui.movie.Movie;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.Movie;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 import com.malibin.boostcourseace.util.MovieRate;
 
 import java.util.ArrayList;
@@ -64,6 +64,7 @@ public class ConvertCursorFactory {
                     Arrays.asList(TextUtils.split(cursor.getString(17), "##")), // videoLinks
                     Arrays.asList(TextUtils.split(cursor.getString(18), "##"))  // outLinks
             );
+            //Log.d("Malibin Debug", Arrays.asList(TextUtils.split(cursor.getString(16), "##")));
         } catch (Exception e) {
             return null;
         }

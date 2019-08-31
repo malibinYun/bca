@@ -10,8 +10,8 @@ import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
-import com.malibin.boostcourseace.ui.movie.Movie;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.Movie;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 import java.util.List;
 
@@ -49,6 +49,8 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
             public void onResponse(Movie response) {
                 view.initMovieDetailInfo(response);
                 view.setLoadingIndicator(false);
+
+                Log.d("Malibin Debug", "movie : " + response);
 
                 localRepository.saveMovieDetail(response);
             }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.malibin.boostcourseace.R;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 public class MovieReviewView extends ConstraintLayout {
 

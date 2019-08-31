@@ -6,7 +6,7 @@ import com.android.volley.VolleyError;
 import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.network.CallBack;
 import com.malibin.boostcourseace.network.RemoteRepository;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 
 import java.util.HashMap;
 import java.util.List;

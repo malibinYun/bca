@@ -1,6 +1,6 @@
 package com.malibin.boostcourseace.ui.dto;
 
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 import java.util.List;
 

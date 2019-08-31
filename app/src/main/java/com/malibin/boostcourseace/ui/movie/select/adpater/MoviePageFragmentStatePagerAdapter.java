@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 
 import java.util.ArrayList;
 import java.util.List;

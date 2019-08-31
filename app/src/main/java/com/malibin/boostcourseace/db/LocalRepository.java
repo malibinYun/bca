@@ -4,9 +4,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.malibin.boostcourseace.ui.movie.Movie;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.Movie;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 import java.util.List;
 
@@ -55,6 +55,9 @@ public class LocalRepository {
     }
 
     public void saveMovieDetail(Movie movie) {
+
+
+
         String sql = "INSERT INTO movie VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             database.execSQL(sql, movie.toSqlArgs());

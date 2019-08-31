@@ -9,7 +9,7 @@ import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.network.request.MovieReviewListRequestDTO;
 import com.malibin.boostcourseace.network.request.ReviewRecommendRequestDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 import java.util.List;
 

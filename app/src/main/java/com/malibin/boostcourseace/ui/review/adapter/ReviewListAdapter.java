@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 import com.malibin.boostcourseace.ui.review.MovieReviewView;
 
 import java.util.ArrayList;

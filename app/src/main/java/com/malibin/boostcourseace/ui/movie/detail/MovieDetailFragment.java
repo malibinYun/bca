@@ -12,6 +12,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +34,10 @@ import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewMoreDTO;
 import com.malibin.boostcourseace.ui.dto.ReviewWriteDTO;
-import com.malibin.boostcourseace.ui.movie.Movie;
+import com.malibin.boostcourseace.ui.entity.Movie;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.movie.detail.adapter.MovieDetailGalleryRvAdapter;
 import com.malibin.boostcourseace.ui.review.MovieReviewView;
 import com.malibin.boostcourseace.ui.review.adapter.ReviewListAdapter;
 import com.malibin.boostcourseace.ui.review.more.ReviewMoreActivity;
@@ -71,7 +74,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private ReviewListDTO reviewListDTO;
 
-    private ReviewListAdapter adapter;
+    private ReviewListAdapter reviewListAdapter;
+    private MovieDetailGalleryRvAdapter galleryRvAdapter;
 
     private View.OnClickListener recommendBtnClickListener = v -> {
         v.setEnabled(false);
@@ -161,7 +165,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Override
     public void showRecommendCompleteToast(int reviewId) {
         Toast.makeText(getContext(), "리뷰를 추천하였습니다 !", Toast.LENGTH_SHORT).show();
-        adapter.disableBtnById(reviewId);
+        reviewListAdapter.disableBtnById(reviewId);
     }
 
     @Override
@@ -329,6 +333,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         initPlot();
         initDirector();
         initActor();
+        initGallery();
     }
 
     private void initPlot() {
@@ -344,6 +349,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private void initActor() {
         TextView tvActor = inflatedView.findViewById(R.id.tv_movie_detail_frag_actor);
         tvActor.setText(movie.getActress());
+    }
+
+    private void initGallery() {
+        galleryRvAdapter = new MovieDetailGalleryRvAdapter(getContext());
+        galleryRvAdapter.addGalleries(movie.getGalleryList());
+        RecyclerView rvGallery = inflatedView.findViewById(R.id.rv_movie_detail_frag_gallery);
+        rvGallery.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        rvGallery.setAdapter(galleryRvAdapter);
     }
 
     private void initReviewZone() {
@@ -400,9 +413,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void initReviewList() {
         ListView reviewList = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        adapter = new ReviewListAdapter(getActivity(), reviewListDTO);
-        adapter.setRecommendBtnClickListener(recommendBtnClickListener);
-        reviewList.setAdapter(adapter);
+        reviewListAdapter = new ReviewListAdapter(getActivity(), reviewListDTO);
+        reviewListAdapter.setRecommendBtnClickListener(recommendBtnClickListener);
+        reviewList.setAdapter(reviewListAdapter);
         setListViewHeightBasedOnChildren(reviewList);
     }
 
@@ -464,7 +477,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private void appendReceivedReview(MovieReview review) {
         ListView listView = inflatedView.findViewById(R.id.rv_movie_detail_review_list);
-        adapter.addReview(review);
+        reviewListAdapter.addReview(review);
         setListViewHeightBasedOnChildren(listView);
     }
 
@@ -481,7 +494,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void refreshReviewList() {
-        adapter.deleteAllReviews();
+        reviewListAdapter.deleteAllReviews();
         if (isInternetConnected()) {
             presenter.requestRemoteRecentReview(movieId);
             return;

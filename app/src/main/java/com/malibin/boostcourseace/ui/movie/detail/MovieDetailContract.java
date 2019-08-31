@@ -1,7 +1,7 @@
 package com.malibin.boostcourseace.ui.movie.detail;
 
 import com.malibin.boostcourseace.ui.dto.ReviewListDTO;
-import com.malibin.boostcourseace.ui.movie.Movie;
+import com.malibin.boostcourseace.ui.entity.Movie;
 import com.malibin.boostcourseace.util.BasePresenter;
 import com.malibin.boostcourseace.util.BaseView;
 

@@ -21,7 +21,7 @@ import com.malibin.boostcourseace.db.LocalRepository;
 import com.malibin.boostcourseace.network.RemoteRepository;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivity;
 import com.malibin.boostcourseace.ui.movie.MovieHomeActivityCall;
-import com.malibin.boostcourseace.ui.movie.MovieShortInfo;
+import com.malibin.boostcourseace.ui.entity.MovieShortInfo;
 import com.malibin.boostcourseace.ui.movie.select.adpater.MoviePageFragmentStatePagerAdapter;
 
 import java.util.List;

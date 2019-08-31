@@ -1,6 +1,6 @@
 package com.malibin.boostcourseace.network.response;
 
-import com.malibin.boostcourseace.ui.review.MovieReview;
+import com.malibin.boostcourseace.ui.entity.MovieReview;
 
 /**
  * Created By Yun Hyeok

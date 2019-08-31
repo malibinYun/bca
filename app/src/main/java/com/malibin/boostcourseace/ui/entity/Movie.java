@@ -1,9 +1,10 @@
-package com.malibin.boostcourseace.ui.movie;
+package com.malibin.boostcourseace.ui.entity;
 
 import android.text.TextUtils;
 
 import com.malibin.boostcourseace.util.MovieRate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,9 +78,9 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", director='" + director + '\'' +
                 ", actress='" + actress + '\'' +
-                ", photoLinks=" + photoLinks +
-                ", videoLinks=" + videoLinks +
-                ", outLinks=" + outLinks +
+                ", photoLinks=" + TextUtils.join("##", photoLinks) +
+                ", videoLinks=" + TextUtils.join("##", videoLinks) +
+                ", outLinks=" + TextUtils.join("##", outLinks) +
                 '}';
     }
 
@@ -88,6 +89,17 @@ public class Movie {
                 likeCount, dislikeCount, reservationRank, reservationRate, starRate, accumulatedAttendance, plot, director, actress,
                 TextUtils.join("##", photoLinks), TextUtils.join("##", videoLinks), TextUtils.join("##", outLinks)
         };
+    }
+
+    public List<MovieGallery> getGalleryList() {
+        List<MovieGallery> galleryList = new ArrayList<>();
+        for (String imageUrl : photoLinks) {
+            galleryList.add(new MoviePictureGallery(imageUrl));
+        }
+        for (String videoUrl : videoLinks) {
+            galleryList.add(new MovieVideoGallery(videoUrl));
+        }
+        return galleryList;
     }
 
     public int getId() {
