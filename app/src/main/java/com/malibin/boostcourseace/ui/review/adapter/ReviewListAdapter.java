@@ -76,14 +76,6 @@ public class ReviewListAdapter extends BaseAdapter {
 
         review.setRecommendCount(review.getRecommendCount() + 1);
         notifyDataSetChanged();
-        // 메소드는 모두 정상 실행되지만.. 온클릭리스너를 null 로 다시 set 해도 동작하지않고,
-        // 온클릭리스너 set 했던 뷰의 enable 값을 false 로도 바꾸어봤지만 버튼을 막지는 못했습니다..
-        // 제 생각엔 getView 에서 리턴해주는 View 가 일급 컬렉션 패턴이여서 그런 것 같다는 생각이 듭니다.
-        // 그래서 우선은 클릭리스너 자체에서 클릭을 막는 코드를 넣었지만, 만일 서버통신에 실패하여 반영이 안되었을 때는
-        // 다시 누를 수 있게 만들어야하는데, 이것을 하지 못하는 패턴이라 임시방편이라고 생각됩니다.
-        // Review 데이터 클래스 내부에 isClicked 라는 변수를 두고, itemView 내부에 이 변수에 따른 클릭 블락 코드를 심어놓은뒤
-        // isClicked 변수를 바꾼뒤 notifyDataSetChanged(); 메소드를 호출하는 방법이 떠오릅니다.
-        // 시간이 많이 남지않아 해보지는 못했습니다만..  이게 맞는 방법인지요 ??
     }
 
     public void addReview(MovieReview review) {

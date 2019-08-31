@@ -352,6 +352,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     private void initGallery() {
+        if (movie.getGalleryList().isEmpty()) {
+            ConstraintLayout galleryZone = inflatedView.findViewById(R.id.zone_movie_detail_frag_gallery);
+            galleryZone.setVisibility(View.GONE);
+            return;
+        }
         galleryRvAdapter = new MovieDetailGalleryRvAdapter(getContext());
         galleryRvAdapter.addGalleries(movie.getGalleryList());
         RecyclerView rvGallery = inflatedView.findViewById(R.id.rv_movie_detail_frag_gallery);

@@ -19,11 +19,13 @@ import com.malibin.boostcourseace.ui.entity.MovieVideoGallery;
 public class MovieDetailGalleryViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView ivImage;
+    private ImageView ivIsVideo;
 
     public MovieDetailGalleryViewHolder(@NonNull View itemView) {
         super(itemView);
 
         ivImage = itemView.findViewById(R.id.iv_rv_movie_gallery_image);
+        ivIsVideo = itemView.findViewById(R.id.iv_rv_movie_gallery_video);
     }
 
     public void bindContent(MovieGallery gallery) {
@@ -44,6 +46,7 @@ public class MovieDetailGalleryViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setVideoGallery(MovieVideoGallery gallery) {
+        ivIsVideo.setVisibility(View.VISIBLE);
         Glide.with(ivImage)
                 .load(gallery.getImageUrl())
                 .into(ivImage);
