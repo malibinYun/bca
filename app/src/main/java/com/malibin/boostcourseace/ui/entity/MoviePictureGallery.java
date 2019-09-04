@@ -7,17 +7,12 @@ package com.malibin.boostcourseace.ui.entity;
 
 public class MoviePictureGallery extends MovieGallery{
 
-    private String imageUrl;
-
     public MoviePictureGallery(String imageUrl) {
-        this.imageUrl = imageUrl;
+        super(imageUrl);
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

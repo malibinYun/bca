@@ -7,4 +7,10 @@ package com.malibin.boostcourseace.ui.entity;
 
 public class MovieGallery {
 
+    protected String imageUrl;
+
+    public MovieGallery(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 }

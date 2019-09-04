@@ -8,11 +8,10 @@ package com.malibin.boostcourseace.ui.entity;
 public class MovieVideoGallery extends MovieGallery {
 
     private String videoUrl;
-    private String imageUrl;
 
     public MovieVideoGallery(String videoUrl) {
+        super(convertThumbnailUrl(videoUrl));
         this.videoUrl = videoUrl;
-        this.imageUrl = convertThumbnailUrl(videoUrl);
     }
 
     public String getVideoUrl() {
@@ -23,7 +22,7 @@ public class MovieVideoGallery extends MovieGallery {
         return imageUrl;
     }
 
-    private String convertThumbnailUrl(String url) {
+    private static String convertThumbnailUrl(String url) {
         String key = url.replace("https://youtu.be/", "");
         return "https://img.youtube.com/vi/" + key + "/0.jpg";
     }

@@ -20,6 +20,7 @@ import java.util.List;
  * Created By Yun Hyeok
  * on 8월 30, 2019
  */
+
 public class MovieDetailGalleryRvAdapter extends RecyclerView.Adapter<MovieDetailGalleryViewHolder> {
 
     private Context context;
