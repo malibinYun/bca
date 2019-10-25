@@ -35,12 +35,12 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView9"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_movie_home_act_sort"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/order_small" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/tv_movie_home_act_sort"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -62,7 +62,48 @@
             android:id="@+id/fl_movie_home_act"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:id="@+id/menu_movie_home_sort_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/colorPrimary"
+                android:elevation="1dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/btn_movie_home_act_sort_reservation"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:srcCompat="@drawable/order11" />
+
+                <ImageView
+                    android:id="@+id/btn_movie_home_act_sort_curation"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:srcCompat="@drawable/order22" />
+
+                <ImageView
+                    android:id="@+id/btn_movie_home_act_sort_comingsoon"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:srcCompat="@drawable/order33" />
+
+            </LinearLayout>
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 
