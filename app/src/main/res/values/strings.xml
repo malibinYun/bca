@@ -23,6 +23,9 @@
     <string name="server_failed">서버와의 통신에 실패하였습니다. 인터넷 연결을 확인해주세요.</string>
     <string name="database_loaded">인터넷이 연결되어있지않아 저장된 데이터를 불러왔습니다.</string>
     <string name="gallery">갤러리</string>
+    <string name="reservation_order">예매율순</string>
+    <string name="curation_order">큐레이션</string>
+    <string name="coming_soon_order">상영예정</string>
 
     <!--> Movie Detail Act <-->
     <string name="reservation_rate">예매율</string>
